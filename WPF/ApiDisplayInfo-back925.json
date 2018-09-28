@@ -1,0 +1,256 @@
+{
+  "flowCount": {
+    "flowRateByNow": 0,
+    "flowRateByHour": 0,
+    "flowRateByDay": 0,
+    "alarm": false,
+    "alarmtime": "2018-09-16 22:22:02",
+    "info": "人流数据超标，马上启动喷香作业和除异味作业！"
+  },
+
+  "monitorSmell": {
+    "id": "100000105100",
+    "name": "气味探测器",
+    "ppmNH3": 12,
+    "ppmH2S": 21,
+    "ppmVOC": 15,
+    "ppmC8H7N": 18,
+    "alarm": false,
+    "alarmtime": "2018-09-16 20:23:03",
+    "info": "异味数据超标，马上启动喷香作业和除异味作业！"
+  },
+
+  "monitorWeather": {
+    "id": "100000106100",
+    "name": "温湿度探测器",
+    "temperature": 28,
+    "humidity": 90,
+    "pm25": 120,
+    "alarm": false,
+    "alarmtime": "2018-09-16 20:23:03",
+    "info": "温湿度数据超标，请检查环境！"
+  },
+
+  "fans": [
+    {
+      "id": "100000104100",
+      "name": "1号",
+      "working": false,
+      "workMinutes": 0,
+      "workHourCount": 0,
+      "workHourMinutes": 0
+    },
+    {
+      "id": "100000104101",
+      "name": "2号",
+      "working": false,
+      "workMinutes": 0,
+      "workHourCount": 0,
+      "workMinutesCount": 0
+    }
+  ],
+
+  "pxj": [
+    {
+      "id": "100000100100",
+      "name": "1号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:24:02",
+      "info": "1号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100101",
+      "name": "2号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "2号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100102",
+      "name": "3号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "3号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100103",
+      "name": "4号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "4号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100104",
+      "name": "5号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 22:53:02",
+      "info": "5号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100105",
+      "name": "6号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:16:02",
+      "info": "6号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100106",
+      "name": "7号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "7号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100107",
+      "name": "8号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "8号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100108",
+      "name": "9号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "9号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100109",
+      "name": "10号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "10号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100110",
+      "name": "11号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 22:52:02",
+      "info": "11号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100111",
+      "name": "12号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 22:51:02",
+      "info": "12号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100112",
+      "name": "13号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "13号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100113",
+      "name": "14号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:25:02",
+      "info": "14号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100114",
+      "name": "15号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "15号喷香机余量不足，请及时更换！"
+    }
+  ],
+
+  "smczj": [
+    {
+      "id": "100000103100",
+      "name": "1号",
+      "working": false,
+      "total": 30,
+      "ramainder": 30,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "1号物联网综合服务器卷纸剩余量不足，请及时更换！"
+    },
+    {
+      "id": "100000103101",
+      "name": "2号",
+      "working": false,
+      "total": 30,
+      "ramainder": 30,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "2号物联网综合服务器卷纸剩余量不足，请及时更换！"
+    }
+  ],
+
+  "xsysb": [
+    {
+      "id": "100000101100",
+      "name": "1号",
+      "working": false,
+      "total": 1000,
+      "ramainder": 100,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:26:02",
+      "info": "1号洗手液设备余量不足，请及时更换！"
+    }
+  ],
+
+  "cszsb": [
+    {
+      "id": "100000102100",
+      "name": "1号",
+      "working": false,
+      "total": 30,
+      "ramainder": 30,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "1号擦手纸设备余量不足，请及时更换!"
+    }
+  ]
+
+
+}

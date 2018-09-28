@@ -1,0 +1,142 @@
+﻿#include <stdio.h>
+#include <iostream>
+#include "Windows.h"
+#include "HCNetSDK.h"
+using namespace std;
+
+//时间解析宏定义
+#define GET_YEAR(_time_)      (((_time_)>>26) + 2000) 
+#define GET_MONTH(_time_)     (((_time_)>>22) & 15)
+#define GET_DAY(_time_)       (((_time_)>>17) & 31)
+#define GET_HOUR(_time_)      (((_time_)>>12) & 31) 
+#define GET_MINUTE(_time_)    (((_time_)>>6)  & 63)
+#define GET_SECOND(_time_)    (((_time_)>>0)  & 63)
+
+BOOL CALLBACK MessageCallback(LONG lCommand, NET_DVR_ALARMER *pAlarmer, char *pAlarmInfo, DWORD dwBufLen, void* pUser)
+{
+    //以下代码仅供参考，实际应用中不建议在该回调函数中直接处理数据保存文件
+    //例如可以使用消息的方式(PostMessage)在消息响应函数里进行处理，具体可参考ClientDemo。
+
+    switch(lCommand) 
+    {       
+        case COMM_ALARM_PDC: //客流量统计报警信息
+	    {
+              NET_DVR_PDC_ALRAM_INFO struPDCAlarmInfo = {0};
+              memcpy(&struPDCAlarmInfo, pAlarmInfo, sizeof(struPDCAlarmInfo));
+              if (struPDCAlarmInfo.byMode == 0) //0-实时统计结果，自上次清零动作（包括设备重启、手动清零或每天零点自动清零）后开始计算的实时数量
+              {
+                  NET_DVR_TIME  struAbsTime = {0};
+                  struAbsTime.dwYear = GET_YEAR(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+                  struAbsTime.dwMonth = GET_MONTH(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+                  struAbsTime.dwDay = GET_DAY(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+                  struAbsTime.dwHour = GET_HOUR(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+                  struAbsTime.dwMinute = GET_MINUTE(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+                  struAbsTime.dwSecond = GET_SECOND(struPDCAlarmInfo.uStatModeParam.struStatFrame.dwAbsTime);
+
+                  //设备IP、端口、通道、离开人数、进入人数、是否Smart报警、绝对时间
+                  printf("DevIP:[%s]Port[%d]Channel[%d]single frame:Channel[%d]LeaveNum[%d]EnterNum[%d]Smart[%d]\
+                  AbsTime[%4.4d%2.2d%2.2d%2.2d%2.2d%2.2d]\n", struPDCAlarmInfo.struDevInfo.struDevIP.sIpV4, \
+                  struPDCAlarmInfo.struDevInfo.wPort, struPDCAlarmInfo.struDevInfo.byChannel, \
+                  struPDCAlarmInfo.byChannel, struPDCAlarmInfo.dwLeaveNum, struPDCAlarmInfo.dwEnterNum,\
+                  struPDCAlarmInfo.bySmart, struAbsTime.dwYear, struAbsTime.dwMonth, struAbsTime.dwDay,\
+                  struAbsTime.dwHour, struAbsTime.dwMinute, struAbsTime.dwSecond);
+              }
+              if (struPDCAlarmInfo.byMode == 1) //1-周期统计结果，设定的统计周期内增加的数量，更新频率即为设定的统计周期（默认15分钟，最小1分钟，最大60分钟）
+              {
+                  NET_DVR_TIME  struStartTime = {0};
+                  NET_DVR_TIME  struEndTime = {0};
+                  struStartTime = struPDCAlarmInfo.uStatModeParam.struStatTime.tmStart;
+                  struEndTime = struPDCAlarmInfo.uStatModeParam.struStatTime.tmEnd;
+
+
+                  //设备IP、端口、通道、离开人数、进入人数、经过人数、是否Smart报警、开始时间、结束时间
+                  printf("DevIP:[%s]Port[%d]Channel[%d]single frame:Channel[%d]LeaveNum[%d]EnterNum[%d]PassingNum[%d]Smart[%d]\
+                  StartTime[%4.4d%2.2d%2.2d%2.2d%2.2d%2.2d]EndTime[%4.4d%2.2d%2.2d%2.2d%2.2d%2.2d]\n",\
+                  struPDCAlarmInfo.struDevInfo.struDevIP.sIpV4, struPDCAlarmInfo.struDevInfo.wPort,\
+                  struPDCAlarmInfo.struDevInfo.byChannel, struPDCAlarmInfo.byChannel, struPDCAlarmInfo.dwLeaveNum,\
+                  struPDCAlarmInfo.dwEnterNum, struPDCAlarmInfo.dwPassingNum, struPDCAlarmInfo.bySmart, struStartTime.dwYear,\
+                  struStartTime.dwMonth, struStartTime.dwDay, struStartTime.dwHour, struStartTime.dwMinute,\
+                  struStartTime.dwSecond, struEndTime.dwYear, struEndTime.dwMonth, struEndTime.dwDay, struEndTime.dwHour, \
+                  struEndTime.dwMinute, struEndTime.dwSecond);
+              }
+              //其他信息处理......
+              break;
+	    }       
+        
+        default:
+        {
+            printf("其他报警，报警信息类型: 0x%x\n", lCommand);
+            break;
+        }
+    }
+
+    return TRUE;
+}
+
+void main() {
+    //---------------------------------------
+    // 初始化
+    NET_DVR_Init();
+    //设置连接时间与重连时间
+    NET_DVR_SetConnectTime(2000, 1);
+    NET_DVR_SetReconnect(10000, true);
+
+    //---------------------------------------
+    // 注册设备
+    LONG lUserID;
+
+    //登录参数，包括设备地址、登录用户、密码等
+    NET_DVR_USER_LOGIN_INFO struLoginInfo = {0};
+    struLoginInfo.bUseAsynLogin = 0; //同步登录方式
+    strcpy(struLoginInfo.sDeviceAddress, "192.0.0.64"); //设备IP地址
+    struLoginInfo.wPort = 8000; //设备服务端口
+    strcpy(struLoginInfo.sUserName, "admin"); //设备登录用户名
+    strcpy(struLoginInfo.sPassword, "abcd1234"); //设备登录密码
+  
+    //设备信息, 输出参数
+    NET_DVR_DEVICEINFO_V40 struDeviceInfoV40 = {0};
+
+    lUserID = NET_DVR_Login_V40(&struLoginInfo, &struDeviceInfoV40);
+    if (lUserID < 0)
+    {
+        printf("Login failed, error code: %d\n", NET_DVR_GetLastError());
+        NET_DVR_Cleanup();
+        return;
+    }
+  
+    //设置报警回调函数
+    NET_DVR_SetDVRMessageCallBack_V31(MessageCallback, NULL);
+  
+    //启用布防
+    LONG lHandle;
+    NET_DVR_SETUPALARM_PARAM  struAlarmParam={0};
+    struAlarmParam.dwSize=sizeof(struAlarmParam);
+    //其他报警布防参数不需要设置，不支持
+
+    lHandle = NET_DVR_SetupAlarmChan_V41(lUserID, & struAlarmParam);
+    if (lHandle < 0)
+    {
+        printf("NET_DVR_SetupAlarmChan_V41 error, %d\n", NET_DVR_GetLastError());
+        NET_DVR_Logout(lUserID);
+        NET_DVR_Cleanup(); 
+        return;
+    }
+  
+    Sleep(50000); //等待过程中，如果设备上传报警信息，在报警回调函数里面接收和处理报警信息
+
+    //撤销布防上传通道
+    if (!NET_DVR_CloseAlarmChan_V30(lHandle))
+    {
+        printf("NET_DVR_CloseAlarmChan_V30 error, %d\n", NET_DVR_GetLastError());
+        NET_DVR_Logout(lUserID);
+        NET_DVR_Cleanup(); 
+        return;
+    }
+  
+    //注销用户
+    NET_DVR_Logout(lUserID);
+    //释放SDK资源
+    NET_DVR_Cleanup();
+    return;
+}
+

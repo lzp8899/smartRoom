@@ -1,0 +1,17 @@
+﻿<Window x:Class="Web.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Web"
+        mc:Ignorable="d"
+        Title="智慧厕所物联网平台" Height="450" Width="800" Closing="Window_Closing">
+    <Grid>
+        <Button x:Name="btnOpenZNKG" Content="打开智能开关" HorizontalAlignment="Left" Margin="90,56,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnOpenZNKG_Click"/>
+        <Button x:Name="btnCloseZNKG" Content="关闭智能开关" HorizontalAlignment="Left" Margin="90,120,0,0" VerticalAlignment="Top" Width="83" Height="41" Click="btnCloseZNKG_Click"/>
+        <Button x:Name="btnOpenPXJ" Content="打开喷香机" HorizontalAlignment="Left" Margin="268,56,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnOpenPXJ_Click"/>
+        <Button x:Name="btnLoadJson" Content="加载JSON" HorizontalAlignment="Left" Margin="586,123,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnLoadJson_Click"/>
+        <Button x:Name="btnSaveJson" Content="保存JSON" HorizontalAlignment="Left" Margin="586,56,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnSaveJson_Click"/>
+
+    </Grid>
+</Window>

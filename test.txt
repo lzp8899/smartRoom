@@ -1,0 +1,24 @@
+ <add key="FlowAlarmCount" value="10" />  // 客流报警量20
+    <add key="NH3AlarmCount" value="40" /> // 氨气40视为报警
+    <add key="PXJMaxCount" value="3000" />//喷香机 最大计数3000
+    <add key="PXJAlarmRemainCount" value="20" />//喷香机余次报警阀值
+    <add key="PXJWorkCount" value="5" />  //连续喷射5次
+    <add key="PXJSubIntervalSecond" value="5" /> //连续喷射5次，每次间隔5秒
+    <add key="PXJWorkIntervalSecond" value="30" /> //工作间隙30秒
+    <add key="FanWorkSecond" value="300" />  //风扇每次连续开起300秒
+    <add key="FanWorkIntervalSecond" value="30" />  //风扇工作间隙30秒
+
+
+喷香机复位信号
+    收到设备数据：{"seq":"1000000223","id":"100000100102","city":"0028","messagetype":"request","command":"ping","parameter":"1"}
+
+
+
+    收到设备数据：{"seq":"1000000020","id":"100000106100","city":"0028","messagetype":"request","command":"ping","parameter":"26.2,61.0,15"}
+发送数据：{"seq":"1000000020","id":"100000106100","city":"0028","messagetype":"response","command":"ping","parameter":"1"}
+收到设备数据：{"seq":"1000000021","id":"100000106100","city":"0028","messagetype":"request","command":"ping","parameter":"26.2,61.2,17"}
+
+
+收到设备数据：{"seq":"1000000008","id":"100000105100","city":"0028","messagetype":"request","command":"ping","parameter":"0.0,0.0"}
+发送数据：{"seq":"1000000009","id":"100000105100","city":"0028","messagetype":"response","command":"ping","parameter":"1"}
+收到设备数据：{"seq":"1000000009","id":"100000105100","city":"0028","messagetype":"request","command":"ping","parameter":"0.0,0.0"}
