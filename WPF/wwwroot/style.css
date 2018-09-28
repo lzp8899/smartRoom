@@ -1,0 +1,605 @@
+body {
+    margin: 0px;
+    background-color: rgba(205, 205, 205, 1);
+    background-image: none;
+    position: relative;
+    left: -0px;
+    width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    overflow: hidden;
+}
+
+.title {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1920px;
+    height: 60px;
+    background: inherit;
+    background-color: rgba(102, 102, 102, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.title img {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: -4px;
+    width: 64px;
+    height: 64px;
+}
+
+.title #msg {
+    border-width: 0px;
+    position: absolute;
+    padding-left: 74px;
+    padding-top: 7px;
+    width: 548px;
+    height: 42px;
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    white-space: nowrap;
+
+    margin: 0px;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+
+    font-size: 32px;
+    text-align: left;
+}
+
+.title #date {
+    text-align: left;
+    border-width: 0px;
+    position: absolute;
+    left: 1310px;
+    top: 11px;
+    width: 183px;
+    height: 22px;
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.info {
+    border-width: 0px;
+    position: absolute;
+    margin-top: 60px;
+    width: 450px;
+    height: 1080px;
+    background: inherit;
+    background-color: rgba(48, 48, 48, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.info .railway {
+    border-width: 0px;
+    margin-top: 17px;
+    margin-left: 11px;
+    width: 64px;
+    height: 64px;
+}
+
+.info .station {
+    border-width: 0px;
+    position: absolute;
+    left: 110px;
+    top: -4px;
+    width: 129px;
+    height: 42px;
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    white-space: nowrap;
+    font-size: 32px;
+    text-align: left;
+}
+
+.line {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    width: 301px;
+    height: 2px;
+    width: 450px;
+    height: 1px;
+}
+
+.line_img {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 451px;
+    height: 2px;
+}
+
+.wc_name {
+    border-width: 0px;
+    position: absolute;
+    left: 11px;
+    top: 92px;
+    width: 89px;
+    height: 24px;
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    white-space: nowrap;
+
+    font-size: 18px;
+    text-align: left;
+}
+
+.flow {
+    border-width: 0px;
+    position: absolute;
+    left: 5px;
+    height: 19px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+    white-space: nowrap;
+
+    font-size: 14px;
+    text-align: left;
+}
+
+.flow div {
+    float: left;
+}
+
+.flow1 {
+    width: 150px;
+}
+
+.flow2 {
+    width: 150px;
+    padding-left: 8px;
+}
+
+.flow3 {
+    width: 120px;
+}
+
+.flow4 {
+    width: 150px;
+}
+
+.flow5 {
+    margin-left: 12px;
+    width: 150px;
+}
+
+.flow6 {
+    /* margin-left: 19px; */
+    width: 80px;
+}
+
+.info_msg_title {
+    border-width: 0px;
+    position: absolute;
+    left: 11px;
+    top: 448px;
+    width: 71px;
+    height: 24px;
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    white-space: nowrap;
+
+    font-size: 18px;
+    text-align: left;
+}
+
+.info_msg {
+    border-width: 0px;
+    position: absolute;
+    left: 5px;
+    top: 495px;
+    width: 289px;
+    height: 19px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #ffffff;
+    word-wrap: break-word;
+}
+
+.info_msg_div {
+    position: absolute;
+    height: 364px;
+    overflow-y: auto;
+    top: 20px;
+    left: 10px;
+    width: 430px;
+}
+
+.device_info {
+    border-width: 0px;
+    position: absolute;
+    left: 450px;
+    width: 700px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.incense_device_title {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 47px;
+    height: 150px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+
+    background: inherit;
+    background-color: rgba(0, 204, 255, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.incense_device_title div {
+    border-width: 0px;
+    position: absolute;
+    left: 2px;
+    top: 20px;
+    width: 43px;
+    word-wrap: break-word;
+
+    text-align: center;
+    line-height: normal;
+}
+
+.incense_device_title p {
+    margin: 0px;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern"1;
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+    font-kerning: normal;
+}
+
+.incense_device {
+    border-width: 0px;
+    position: absolute;
+    width: 128px;
+    height: 90px;
+
+    margin-top: 1px;
+}
+
+.incense_device img {
+    height: 128px;
+    width: 128px;
+}
+
+.incense_device_box {
+    position: relative;
+    left: 7px;
+    top: 0px;
+    width: 110px;
+    height: 12px;
+    background-image: none;
+}
+
+.incense_device_box_div {
+    border-width: 0px;
+    position: absolute;
+    left: 7px;
+    top: 0px;
+    width: 110px;
+    height: 12px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.incense_device_box_color_div {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 10px;
+    background: inherit;
+    background-color: rgba(0, 153, 0, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.general_service {
+    border-width: 0px;
+    position: absolute;
+    left: 900px;
+    width: 321px;
+    height: 230px;
+    margin-left: 10px;
+    margin-top: 10px;
+    top: 60px;
+}
+
+.general_service_title {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 41px;
+    height: 230px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+
+    font-family: "Arial Normal", "Arial";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+
+    background: inherit;
+    background-color: rgba(204, 204, 255, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.general_service_title div {
+    border-width: 0px;
+    position: absolute;
+    left: 1px;
+    top: 42px;
+    width: 43px;
+    word-wrap: break-word;
+
+    text-align: center;
+    line-height: normal;
+}
+
+.general_service_title p {
+    margin: 0px;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern"1;
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+    font-kerning: normal;
+}
+
+.general_service_device {
+    border-width: 0px;
+    position: absolute;
+    widows: 128px;
+    height: 158px;
+
+    margin-top: 35px;
+}
+
+.general_service_device img {
+    height: 128px;
+    width: 128px;
+    margin-left: 15px;
+}
+
+.general_service_device_box {
+    position: relative;
+    left: 15px;
+    top: 10px;
+    width: 130px;
+    height: 12px;
+    background-image: none;
+}
+
+.general_service_device_box_div {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 130px;
+    height: 12px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.general_service_device_box_color_div {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 10px;
+    background: inherit;
+    background-color: rgba(0, 153, 0, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.general_service_device_msg {
+    border-width: 0px;
+    position: absolute;
+    top: 0px;
+    height: 150px;
+
+    visibility: inherit;
+    position: absolute;
+    left: 159px;
+    width: 190px;
+    transform-origin: 35.5px 75px 0px;
+
+    font-family: "Arial Normal", "Arial";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+    text-align: left;
+}
+
+.double_ion {
+    border-width: 0px;
+    position: absolute;
+    left: 450px;
+    width: 1200px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.double_ion_title {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 47px;
+    height: 200px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+
+    background: inherit;
+    background-color: rgba(0, 204, 153, 1);
+    border: none;
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.double_ion_title div {
+    border-width: 0px;
+    position: absolute;
+    left: 2px;
+    top: 38px;
+    width: 43px;
+    word-wrap: break-word;
+
+    text-align: center;
+    line-height: normal;
+}
+
+.double_ion_title p {
+    margin: 0px;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern"1;
+    -webkit-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern";
+    -moz-font-feature-settings: "kern=1";
+    font-kerning: normal;
+}
+
+.double_ion_device {
+    position: absolute;
+    left: 80px;
+    top: 30px;
+}
+
+.double_ion_device_div {
+    border-width: 0px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    /* cursor: pointer; */
+}
+
+.double_ion_device_div_box {
+    border-width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 148px;
+    height: 148px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgba(48, 163, 221, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding-left: 7px;
+    padding-top: 7px;
+}
+
+.double_ion_device img {
+    height: 128px;
+    width: 128px;
+}
+
+.double_ion_device_box {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 62px;
+    height: 12px;
+    background-image: none;
+}
+
+.double_ion_device_info {
+    border-width: 0px;
+    position: absolute;
+    width: 226px;
+    height: 22px;
+    font-family: "微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    left: 180px;
+    top: 30px;
+}
+
+.double_ion_device_info td {
+    padding: 8px;
+}

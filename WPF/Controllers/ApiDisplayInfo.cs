@@ -81,6 +81,12 @@ namespace Web
     public class FlowCount
     {
         /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public string id { get; set; }
+
+        /// <summary>
         /// Gets or sets the flow rate by now.
         /// </summary>
         /// <value>The flow rate by now.</value>
@@ -124,6 +130,18 @@ namespace Web
         {
 
         }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public string id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        public string name { get; set; }
 
         /// <summary>
         /// Gets or sets the PPM n h3.

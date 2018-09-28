@@ -1,0 +1,258 @@
+{
+    "flowCount":
+        {
+            "flowRateByNow":50,
+            "flowRateByHour":3000,
+            "flowRateByDay":600,
+            "alarm":false,
+            "alarmtime":"2018-09-16 22:22:02",
+            "info":"人eqwrewrqr流数据超标，马上启动dfafsaf喷香作业和除异味作业！"
+        },
+
+    "monitors":
+        {
+            "ppmNH3":12,
+            "ppmH2S":0,
+            "ppmVOC":5,
+            "ppmC8H7N":8,
+            "temperature":130,
+            "humidity":280,
+            "pm25":225,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:23:03",
+            "info":"异味数据超标，马上启动喷香作业和dddd除异味作业！"
+        },
+		
+    "fans":[
+        {
+            "name":"1号",
+            "working":false,
+            "workMinutes":220,
+            "workHourCount":5000
+        },
+
+        {
+            "name":"2号",
+            "working":true,
+            "workMinutes":220,
+            "workHourCount":2400
+        },
+
+        {
+            "name":"3号",
+            "working":false,
+            "workMinutes":260,
+            "workHourCount":1060
+        }
+    ],
+	
+    "pxj":[
+        {   "name":"1号",
+            "working":true,
+            "total":3000,
+            "ramainder":3000,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:24:02",
+            "info":"1号喷香机余量不足，555请及时更换！"
+        },
+        {   "name":"2号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"2号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"3号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"3号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"4号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"4号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"5号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-16 22:53:02",
+            "info":"5号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"6号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:16:02",
+            "info":"6号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"7号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"7号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"8号",
+            "working":false,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"8号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"9号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"9号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"10号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"10号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"11号",
+            "working":false,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-16 22:52:02",
+            "info":"11号喷香机余量ewqrW不足，请及时更换！"
+        },
+        {   "name":"12号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 22:51:02",
+            "info":"12号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"13号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"13号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"14号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:25:02",
+            "info":"14号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"15号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"15号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"16号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"16号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"17号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"17号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"18号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"18号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"19号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"19号喷香机余量不足，请及时更换！"
+        },
+        {   "name":"20号",
+            "working":true,
+            "total":3000,
+            "ramainder":500,
+            "alarm":false,
+            "alarmtime":"2018-09-20 20:15:02",
+            "info":"20号喷香机余量不足，请及时更换！"
+        }
+    ],
+
+    "smczj":[
+        {
+            "name":"1号",
+            "working":true,
+            "total":1000,
+            "ramainder":1000,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"1号物联网综合服务器卷纸剩余量不足，请及时更换！"
+        },
+		{
+            "name":"2号",
+            "working":false,
+            "total":1000,
+            "ramainder":0,
+            "alarm":false,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"2号物联网综合服tret务器卷纸剩余量不足，请及时更换！"
+        }
+    ],
+
+    "xsysb":[
+        {
+            "name":"1号",
+            "working":true,
+            "total":1000,
+            "ramainder":100,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:26:02",
+            "info":"1号洗手液设ddddd备余量不足，请及时更换！"
+        }
+    ],
+
+    "cszsb":[
+        {
+            "name":"1号",
+            "working":false,
+            "total":1000,
+            "ramainder":500,
+            "alarm":true,
+            "alarmtime":"2018-09-16 20:15:02",
+            "info":"1号擦手纸设备余量不足，请及时更换!1号擦手纸设备余量不足，请及时更换!"
+        }
+    ]
+
+    
+}

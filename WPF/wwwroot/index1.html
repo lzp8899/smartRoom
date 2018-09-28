@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    <script src="./vue.min.js"></script>
+    <script src="./component.js"></script>
+    
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div id="wait-div" style="z-index: 9999; width: 100%; height: 100%;background: rgba(200,200,200,0.9);position: fixed;"></div>
+    </div>
+    <div class="title" id="title">
+        <img src="images/u9.png">
+        <p id="msg"><span>XXX信息科技有限公司智慧厕所云平台</span></p>
+        <p id="date"><span>{{dateTime}}</span></p>
+    </div>
+    <div class="info" id="wcInfo">
+        <img class="railway" src="images/u12.png">
+        <div class="station">
+            <p><span>成都东站</span></p>
+        </div>
+        <div class="line" style="top: 97px;">
+            <img class="line_img" src="images/u14.png">
+        </div>
+        <div class="wc_name">
+            <p><span>售六男厕所</span></p>
+        </div>
+
+        <div class="line" style="top: 148px;">
+            <img class="line_img" src="images/u14.png">
+        </div>
+
+        <div class="flow" style="top:143px;">
+            <div class="flow1">
+                <p><span>动态人流量：</span></p>
+            </div>
+            <div class="flow2">
+                <p><span>{{wcinfo.flowCount.flowRateByNow}}</span></p>
+            </div>
+            <div class="flow3">
+                <p><span>人/秒（sec）</span></p>
+            </div>
+            <template v-if="wcinfo.flowCount.alarm">
+                <alarm-wc></alarm-wc>
+            </template>
+            
+        </div>
+
+        <!-- <div class="flow" style="top:171px;">
+            <div>
+                <p><span>分时人流量：</span></p>
+            </div>
+            <div style="margin-left: 9px">
+                <p><span>16</span></p>
+            </div>
+            <div style="margin-left: 48px">
+                <p><span>人/分钟(min)</span></p>
+            </div>
+            <img style="margin-top: 10px; margin-left:10px;">
+        </div> -->
+
+        <div class="flow" style="top:171px;">
+            <div class="flow1">
+                <p><span>小时人流量：</span></p>
+            </div>
+            <div class="flow2">
+                <p><span>{{wcinfo.flowCount.flowRateByHour}}</span></p>
+            </div>
+            <div class="flow3">
+                <p><span>人/小时(H)</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:196px;">
+            <div class="flow1">
+                <p><span>今日人流量：</span></p>
+            </div>
+            <div class="flow2">
+                <p><span>{{wcinfo.flowCount.flowRateByDay}}</span></p>
+            </div>
+            <div class="flow3">
+                <p><span>人/日(D)</span></p>
+            </div>
+        </div>
+
+        <div class="line" style="top:241px;">
+            <img class="line_img" src="images/u14.png">
+        </div>
+
+        <div class="flow" style="top:238px;">
+            <div class="flow4">
+                <p><span>氨气(NH3)：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.ppmNH3}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>PPM</span></p>
+            </div>
+            <template v-if="wcinfo.monitors.alarm">
+                <alarm-wc></alarm-wc>
+            </template>
+        </div>
+
+        <div class="flow" style="top:267px;">
+            <div class="flow4">
+                <p><span>硫化氢(H2S)：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.ppmH2S}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>PPM</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:297px;">
+            <div class="flow4">
+                <p><span>VOC：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.ppmVOC}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>PPM</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:323px;">
+            <div class="flow4">
+                <p><span>吲哚（C8H7N）：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.ppmC8H7N}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>PPM</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:352px;">
+            <div class="flow4">
+                <p><span>实时温度：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.temperature}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>°C</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:380px;">
+            <div class="flow4">
+                <p><span>实时湿度：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.humidity}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>%</span></p>
+            </div>
+        </div>
+
+        <div class="flow" style="top:409px;">
+            <div class="flow4">
+                <p><span>实时PM2.5：</span></p>
+            </div>
+            <div class="flow5">
+                <p><span>{{wcinfo.monitors.pm25}}</span></p>
+            </div>
+            <div class="flow6">
+                <p><span>μg/m³</span></p>
+            </div>
+        </div>
+
+        <div class="line" style="top:455px;">
+            <img class="line_img" src="images/u14.png">
+        </div>
+
+        <div class="info_msg_title ">
+            <p><span>信息提示</span></p>
+        </div>
+
+        <div class="line" style="top:500px;">
+            <img class="line_img" src="images/u14.png">
+        </div>
+
+        <div id="u498_text" class="info_msg" style="left: 0px; width: 290px; transform-origin: 145px 9.5px 0px; visibility: inherit;">
+            <div class="info_msg_div" >
+                <div v-for="item in wcinfo.malfunctionmsg" style="padding-bottom: 10px;">
+                    <div>
+                        <span style="float: left; width: 80%;">{{item.info}}</span>
+                        <span style="float: left; width: 20%;">{{item.time}}</span>
+                    </div>
+                    <div>&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="device_info" style="top: 60px;">
+        <div style="height: 150px;">
+            <div class="incense_device_title">
+                <div>
+                    <p><span>喷</span></p>
+                    <p><span>香</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 150px; width:700px; background-color: rgba(205, 205, 154, 1);">
+                <div class="incense_device" style="left: 50px;" id="pxj1" >
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 180px;" id="pxj2">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 310px;" id="pxj3">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 440px;" id="pxj4">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 570px;" id="pxj5">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="device_info" style="top: 60px; left: 1210px;">
+        <div style="height: 150px;">
+            <div class="incense_device_title">
+                <div>
+                    <p><span>喷</span></p>
+                    <p><span>香</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 150px; width:700px; background-color: rgba(205, 205, 154, 1);">
+                <div class="incense_device" style="left: 50px;" id="pxj6">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 180px;" id="pxj7">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 310px;" id="pxj8">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 440px;" id="pxj9">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 570px;" id="pxj10">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="device_info" style="top: 250px; left: 450px;">
+        <div style="height: 150px;">
+            <div class="incense_device_title">
+                <div>
+                    <p><span>喷</span></p>
+                    <p><span>香</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 150px; width:700px; background-color: rgba(205, 205, 154, 1);">
+                <div class="incense_device" style="left: 50px;" id="pxj11">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 180px;" id="pxj12">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 310px;" id="pxj13">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 440px;" id="pxj14">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 570px;" id="pxj15">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="device_info" style="top: 250px; left: 1210px;">
+        <div style="height: 150px;">
+            <div class="incense_device_title">
+                <div>
+                    <p><span>喷</span></p>
+                    <p><span>香</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 150px; width:700px; background-color: rgba(205, 205, 154, 1);">
+                <div class="incense_device" style="left: 50px;" id="pxj16">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 180px;" id="pxj17">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 310px;" id="pxj18">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 440px;" id="pxj19">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+
+                <div class="incense_device" style="left: 570px;" id="pxj20">
+                    <incense-device :info="pxjinfo"></incense-device>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="general_service" style="top:440px; left:450px;">
+        <div style="height: 230px;">
+            <div class="general_service_title ">
+                <div>
+                    <p><span>物</span></p>
+                    <p><span>联</span></p>
+                    <p><span>网</span></p>
+                    <p><span>综</span></p>
+                    <p><span>合</span></p>
+                    <p><span>服</span></p>
+                    <p><span>务</span></p>
+                    <p><span>器</span></p>
+                </div>
+            </div>
+
+            <div style="height: 230px; width:400px; background-color: rgba(154, 154, 205, 1);" id="smczj1">
+                <general-device :info="smczjinfo"></general-device>
+            </div>
+        </div>
+    </div>
+
+    <div class="general_service" style="top: 440px; left: 990px;">
+        <div style="height: 230px;">
+            <div class="general_service_title" style="background-color: rgba(0, 204, 153, 1);">
+                <div>
+                    <p><span>智</span></p>
+                    <p><span>能</span></p>
+                    <p><span>出</span></p>
+                    <p><span>洗</span></p>
+                    <p><span>手</span></p>
+                    <p><span>液</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 230px; width:400px; background-color: rgba(48, 154, 102, 1);" id="xsysb1">
+                <xsysb-device :info="xsysbinfo"></xsysb-device>
+            </div>
+        </div>
+    </div>
+
+    <div class="general_service" style="top: 440px; left: 1511px;">
+        <div style="height: 230px;">
+            <div class="general_service_title" style="background-color: rgba(255, 204, 204, 1);">
+                <div>
+                    <p><span>智</span></p>
+                    <p><span>能</span></p>
+                    <p><span>出</span></p>
+                    <p><span>擦</span></p>
+                    <p><span>手</span></p>
+                    <p><span>纸</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 230px; width:400px; background-color: rgba(205, 154, 154, 1);" id="cszsb1">
+                <cszsb-device :info="cszsbinfo"></cszsb-device>
+            </div>
+        </div>
+    </div>
+
+    <div class="double_ion" style="top: 710px;">
+        <div style="height: 200px;">
+            <div class="double_ion_title">
+                <div>
+                    <p><span>双</span></p>
+                    <p><span>离</span></p>
+                    <p><span>子</span></p>
+                    <p><span>设</span></p>
+                    <p><span>备</span></p>
+                </div>
+            </div>
+
+            <div style="height: 200px; width:1460px; background-color: rgba(153, 204, 204, 1);">
+                <div class="double_ion_device" id="fans1">
+                    <div class="double_ion_device_div">
+                        <div class="double_ion_device_div_box">
+                            <fans-icon :working="info.fans1.working"></fans-icon>
+                        </div>
+                    </div>
+
+                    <div class="double_ion_device_info">
+                        <table>
+                            <tr>
+                                <td>
+                                    今日工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans1.workMinutes}}分钟
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    总计工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans1.workHourCount}}小时
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="double_ion_device" style="left: 560px;" id="fans2">
+                    <div class="double_ion_device_div">
+                        <div class="double_ion_device_div_box">
+                            <fans-icon :working="info.fans2.working"></fans-icon>
+                        </div>
+                    </div>
+
+                    <div class="double_ion_device_info">
+                        <table>
+                            <tr>
+                                <td>
+                                    今日工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans2.workMinutes}}分钟
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    总计工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans2.workHourCount}}小时
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="double_ion_device" style="left: 1040px;" id="fans3">
+                    <div class="double_ion_device_div">
+                        <div class="double_ion_device_div_box">
+                            <fans-icon :working="info.fans3.working"></fans-icon>
+                        </div>
+                    </div>
+
+                    <div class="double_ion_device_info">
+                        <table>
+                            <tr>
+                                <td>
+                                    今日工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans3.workMinutes}}分钟
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    总计工作时长：
+                                </td>
+                                <td>
+                                    {{info.fans3.workHourCount}}小时
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./jquery-1.11.0.min.js"></script>
+<script src="./index.js"></script>
+</html>
