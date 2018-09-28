@@ -39,6 +39,14 @@
       "workMinutes": 0,
       "workHourCount": 0,
       "workMinutesCount": 0
+    },
+    {
+      "id": "100000104102",
+      "name": "3号",
+      "working": false,
+      "workMinutes": 0,
+      "workHourCount": 0,
+      "workMinutesCount": 0
     }
   ],
 
@@ -192,6 +200,56 @@
       "alarm": false,
       "alarmtime": "2018-09-16 20:15:02",
       "info": "15号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100115",
+      "name": "16号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "16号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100116",
+      "name": "17号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "17号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100117",
+      "name": "18号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "18号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100118",
+      "name": "19号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "19号喷香机余量不足，请及时更换！"
+    },
+    {
+      "id": "100000100119",
+      "name": "20号",
+      "working": false,
+      "total": 3000,
+      "ramainder": 3000,
+      "alarm": false,
+      "alarmtime": "2018-09-16 20:15:02",
+      "info": "20号喷香机余量不足，请及时更换！"
     }
   ],
 
@@ -205,16 +263,6 @@
       "alarm": false,
       "alarmtime": "2018-09-16 20:15:02",
       "info": "1号物联网综合服务器卷纸剩余量不足，请及时更换！"
-    },
-    {
-      "id": "100000103101",
-      "name": "2号",
-      "working": false,
-      "total": 30,
-      "ramainder": 30,
-      "alarm": false,
-      "alarmtime": "2018-09-16 20:15:02",
-      "info": "2号物联网综合服务器卷纸剩余量不足，请及时更换！"
     }
   ],
 
