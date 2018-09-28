@@ -140,27 +140,13 @@ namespace Web
         /// </summary>
         public void Start()
         {
-            //ApiDisplayInfo.flowCount.flowRateByHour = 1180 / (DateTime.Now.Hour + 11);
-
-            //string json = JsonConvert.SerializeObject(new MessageInfo());
-
-            //ApiDisplayInfo apiDisplayInfo = new ApiDisplayInfo();
-            //string json2 = JsonConvert.SerializeObject(apiDisplayInfo);
-
-
-            //apiDisplayInfo.flowCount = new FlowCount();
-            //apiDisplayInfo.flowCount.flowRateByDay = 10;
-            //apiDisplayInfo.flowCount.flowRateByHour = 30;
-            //apiDisplayInfo.flowCount.flowRateByNow = 40;
-
-            //json2 = JsonConvert.SerializeObject(apiDisplayInfo);
             NLog.LogManager.GetLogger("default").Info("开始启动");
 
             listener = new AsyncTcpListener(6000);
             deviceServer = new IOTDeviceManager(listener);
-            //deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
-            //deviceServer.Start();
-            //listener.Start();
+            deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
+            deviceServer.Start();
+            listener.Start();
 
             NLog.LogManager.GetLogger("default").Info("开始登陆海康设备");
 
