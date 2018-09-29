@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,13 +27,13 @@ namespace Web
         /// </summary>
         /// <param name="so">The so.</param>
         /// <param name="messageInfo">The message information.</param>
-        public IOTDevice(Socket so, MessageInfo messageInfo)
+        public IOTDevice()
         {
-            Socket = so;
-            ID = messageInfo.Id;
-            TypeID = CommonHelper.ToSubIds(ID)[1];
-            DeviceID = CommonHelper.ToSubIds(ID)[2];
-            LastMessageInfo = messageInfo;
+            //Socket = so;
+            //ID = messageInfo.Id;
+            //TypeID = CommonHelper.ToSubIds(ID)[1];
+            //DeviceID = CommonHelper.ToSubIds(ID)[2];
+            //LastMessageInfo = messageInfo;
         }
 
         /// <summary>
@@ -156,7 +157,8 @@ namespace Web
             {
                 if (Socket.Connected)
                 {
-                    sendCount = Socket.Send(data, SocketFlags.None);
+                    SocketError socketError = SocketError.IsConnected;
+                    IAsyncResult asyncResult = Socket.BeginSend(data, 0, data.Length, SocketFlags.None, out socketError, null, null);
                 }
                 else
                 {
@@ -169,6 +171,220 @@ namespace Web
             }
             return sendCount;
         }
+
+        #region Socket
+
+        /// <summary>
+        /// 连接成功。
+        /// </summary>
+        public event EventHandler<ConnectedEventArgs> Connected;
+
+        /// <summary>
+        /// 与设备断开连接后发生。
+        /// </summary>
+        public event EventHandler<DisconnectedEventArgs> Disconnected;
+
+        /// <summary>
+        /// 开始接收数据
+        /// </summary>
+        /// <param name="socket">The socket.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool ReceiveAsync(Socket socket)
+        {
+            //在连接过程中执行断开命令，socket 可能为空。
+            if (socket == null || !socket.Connected)
+            {
+                NLog.LogManager.GetLogger("default").Info("连接断开:{0}", socket?.RemoteEndPoint?.ToString());
+                return false;
+            }
+
+            EndPoint iep;
+
+            try
+            {
+                iep = socket.RemoteEndPoint;
+
+                //获取异步套接字操作对象
+                socketEventArg = new SocketAsyncEventArgs();
+                socketEventArg.Completed += new EventHandler<SocketAsyncEventArgs>(SocketEventArg_Completed);
+                socketEventArg.RemoteEndPoint = iep;
+                socketEventArg.SetBuffer(receiveBuffer, 0, receiveBuffer.Length);
+                socketEventArg.UserToken = socket;
+                Socket = socket;
+
+                if (socketEventArg != null)
+                {
+                    if (!socket.ReceiveAsync(socketEventArg))
+                    {
+                        ProcessReceive(socketEventArg);
+                    }
+                }
+                NLog.LogManager.GetLogger("default").Info("设备上线:{0}", socket?.RemoteEndPoint?.ToString());
+
+                return socket.Connected;
+            }
+            catch (Exception ex)
+            {
+                NLog.LogManager.GetLogger("default").Info("ReceiveAsync异常:{0}", socket.RemoteEndPoint.ToString());
+                Disconnect(socket);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 断开连接。
+        /// </summary>
+        /// <param name="socket">The socket.</param>
+        /// <param name="reason">The reason.</param>
+        private void Disconnect(Socket socket, string reason = "")
+        {
+            if (socket != null)
+            {
+                try
+                {
+                    if (socketEventArg != null)
+                    {
+                        socketEventArg.Completed -= new EventHandler<SocketAsyncEventArgs>(SocketEventArg_Completed);
+                        socketEventArg.Dispose();
+                        socketEventArg = null;
+                    }
+
+                    socket.Shutdown(SocketShutdown.Receive);
+                    socket.Close();
+                }
+                catch (Exception ex)
+                {
+                    NLog.LogManager.GetLogger("default").Info("Disconnect 异常：{0}", ex.Message);
+                }
+                socket = null;
+            }
+            if (Disconnected != null)
+            {
+                Disconnected(this, new DisconnectedEventArgs(reason));
+            }
+        }
+
+        /// <summary>
+        /// A single callback is used for all socket operations. This method forwards execution on to the correct handler
+        /// based on the type of completed operation
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="Exception"></exception>
+        private void SocketEventArg_Completed(object sender, SocketAsyncEventArgs e)
+        {
+            switch (e.LastOperation)
+            {
+                case SocketAsyncOperation.Receive:
+                    ProcessReceive(e);
+                    break;
+
+                //case SocketAsyncOperation.Connect:
+                //    break;
+
+                //case SocketAsyncOperation.Send:
+                //    ProcessSend(e);
+                //    break;
+                default:
+                    throw new Exception(String.Format("收到非法套接字操作类型:{0},错误码:{1}", e.LastOperation, e.SocketError));
+            }
+        }
+
+        /// <summary>
+        /// Processes the receive.
+        /// </summary>
+        /// <param name="e">The <see cref="SocketAsyncEventArgs"/> instance containing the event data.</param>
+        private void ProcessReceive(SocketAsyncEventArgs e)
+        {
+            Socket socket = (Socket)e.UserToken;
+
+            try
+            {
+                if (e.SocketError != SocketError.Success || e.BytesTransferred == 0)
+                {
+                    Disconnect(socket);
+                    return;
+                }
+
+                ProcessData(socket, e.BytesTransferred);
+                if (socket != null)
+                {
+                    if (!socket.ReceiveAsync(e))
+                    {
+                        ProcessReceive(e);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                NLog.LogManager.GetLogger("default").Info("接收出错:{0} {1}", socket.RemoteEndPoint.ToString(), ex.Message);
+                Disconnect(socket);
+            }
+        }
+
+        /// <summary>
+        /// The receive buffer
+        /// </summary>
+        private byte[] receiveBuffer = new byte[4096];
+        /// <summary>
+        /// The socket event argument
+        /// </summary>
+        private SocketAsyncEventArgs socketEventArg;
+
+        /// <summary>
+        /// Processes the data.
+        /// </summary>
+        /// <param name="socket">The socket.</param>
+        /// <param name="size">The size.</param>
+        private void ProcessData(Socket socket, int size)
+        {
+            if (receiveBuffer != null && size <= receiveBuffer.Length)
+            {
+                string msg = String.Empty;
+                try
+                {
+                    msg = Encoding.GetEncoding("gb2312").GetString(receiveBuffer, 0, size).Trim();
+                    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket.RemoteEndPoint.ToString(), msg);
+                    //反序列化json
+                    MessageInfo msgInfo = JsonConvert.DeserializeObject<MessageInfo>(msg);
+
+                    if (msgInfo != null)
+                    {
+                        if (msgInfo.Id.Length != 12)
+                        {
+                            //无效Id 丢弃该包
+                            NLog.LogManager.GetLogger("default").Info("收到设备无效Id数据包:{0} {1}", socket.RemoteEndPoint.ToString(), msg);
+                            return;
+                        }
+                        //ping 包创建设备 暂时只处理ping包
+                        if (msgInfo.command == Command.ping.ToString())
+                        {
+                            SendResponse(Command.ping);
+
+                            if (LastMessageInfo.parameter != msgInfo.parameter)
+                            {
+                                LastMessageInfo = msgInfo;
+                                if (DeviceStateChanged != null)
+                                {
+                                    DeviceStateChanged(this, new DeviceStateChangedEventArgs(msgInfo, this));
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("解析json数据发生错误:" + ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 当设备状态信息改变时发生。
+        /// </summary>
+        public event EventHandler<DeviceStateChangedEventArgs> DeviceStateChanged;
+
+        #endregion
 
     }
 

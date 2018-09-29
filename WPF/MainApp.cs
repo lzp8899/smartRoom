@@ -144,7 +144,7 @@ namespace Web
 
             listener = new AsyncTcpListener(6000);
             deviceServer = new IOTDeviceManager(listener);
-            deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
+            //deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
             deviceServer.Start();
             listener.Start();
 

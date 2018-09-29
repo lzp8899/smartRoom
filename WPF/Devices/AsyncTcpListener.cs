@@ -106,8 +106,8 @@ namespace Web
 
             try
             {
-                NLog.LogManager.GetLogger("default").Info("收到连接请求:{0}", so.RemoteEndPoint.ToString());
                 socket = so.EndAccept(iar);
+                NLog.LogManager.GetLogger("default").Info("收到连接请求:{0}", socket.RemoteEndPoint.ToString());
             }
             catch (SocketException sex)
             {
