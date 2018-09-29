@@ -69,7 +69,6 @@ namespace Web
                 listenSocket.Listen(500);
                 listenSocket.BeginAccept(new AsyncCallback(AcceptCallback), listenSocket);
 
-                //Console.WriteLine("成功启动端口侦听:{0}", port);
                 NLog.LogManager.GetLogger("default").Info("成功启动端口侦听:{0}", port);
             }
             catch (Exception ex)

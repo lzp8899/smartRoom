@@ -41,7 +41,7 @@ namespace Web
 
         private void btnOpenPXJ_Click(object sender, RoutedEventArgs e)
         {
-            MainApp.Instance.deviceServer.ForceOpenPXJ();
+            MainApp.Instance.deviceServer.ForceOpenPXJByManual();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

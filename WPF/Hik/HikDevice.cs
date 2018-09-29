@@ -29,7 +29,7 @@ namespace Web
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                NLog.LogManager.GetLogger("default").Error("初始化海康设备发生错误:{0}", ex.Message);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Web
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                NLog.LogManager.GetLogger("default").Error("登陆海康设备发生错误:{0}", ex.Message);
             }
         }
         int lHandle;
@@ -134,7 +134,7 @@ namespace Web
                     {
                         //报警信息类型
                         string stringAlarm = "报警上传，未处理报警类型：" + lCommand + "设备:" + pAlarmer.sDeviceIP;
-                        Console.WriteLine(stringAlarm);
+                        NLog.LogManager.GetLogger("default").Debug("{0}", stringAlarm);
                     }
                     break;
             }
@@ -167,7 +167,7 @@ namespace Web
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                NLog.LogManager.GetLogger("default").Error("注销海康设备发生错误:{0}", ex.Message);
             }
         }
 
@@ -218,13 +218,8 @@ namespace Web
 
                 stringAlarm = stringAlarm + "，最小时间段统计，开始时间：" + strStartTime + "，结束时间：" + strEndTime;
             }
-            //Console.WriteLine(stringAlarm);
             NLog.LogManager.GetLogger("default").Info("stringAlarm");
             Marshal.FreeHGlobal(ptrPDCUnion);
-
-
-            //报警设备IP地址
-            //string strIP = pAlarmer.sDeviceIP;
         }
 
     }

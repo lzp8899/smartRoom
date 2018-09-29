@@ -59,7 +59,7 @@ namespace Web
                 }
             }
             e.Used = result;
-            NLog.LogManager.GetLogger("default").Info("设备首次上线:{0} ", e.Socket.RemoteEndPoint.ToString());
+            NLog.LogManager.GetLogger("default").Info("设备上线:{0} 总数:{1} ", e?.Socket?.RemoteEndPoint?.ToString(), devices.Count);
         }
 
         private void CreateIOTDevice()
@@ -256,6 +256,31 @@ namespace Web
                     }
                 }
             });
+            return true;
+        }
+
+        internal bool ForceOpenPXJByManual()
+        {
+            List<IOTDevice> temps = new List<IOTDevice>();
+
+            lock (devices)
+            {
+                temps = devices.FindAll(item => item.TypeID == "100");
+            }
+
+            if (temps != null)
+            {
+                MessageInfo messageInfo = new MessageInfo();
+                messageInfo.messagetype = MessageType.request.ToString();
+                messageInfo.command = Command.control.ToString();
+
+                for (int i = 0; i < temps.Count; i++)
+                {
+                    messageInfo.Id = temps[i].ID;
+                    temps[i].SendMsg(messageInfo);
+                    Thread.Sleep(3 * 1000);
+                }
+            }
             return true;
         }
 

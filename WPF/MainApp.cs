@@ -144,13 +144,13 @@ namespace Web
 
             listener = new AsyncTcpListener(6000);
             deviceServer = new IOTDeviceManager(listener);
-            //deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
+            ////deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
             deviceServer.Start();
             listener.Start();
 
             NLog.LogManager.GetLogger("default").Info("开始登陆海康设备");
 
-            //hikDevice.PDCChanged += HikDevice_PDCChanged;
+            hikDevice.PDCChanged += HikDevice_PDCChanged;
             hikDevice.Login();
 
             MessageInfo request = new MessageInfo();
@@ -315,10 +315,11 @@ namespace Web
         private void HikDevice_PDCChanged(object sender, PDCChangedEventArgs e)
         {
             //当前人数大于报警阀值，控制智能开关和喷香机
-            if (e.EnterNum - e.LeaveNum >= ConfigHelper.FlowAlarmCount)
+            int nowCount = (int)(e.EnterNum - e.LeaveNum);
+            if (nowCount >= ConfigHelper.FlowAlarmCount)
             {
-                deviceServer.OpenZNKG();
-                deviceServer.OpenPXJ();
+                //deviceServer.OpenZNKG();
+                //deviceServer.OpenPXJ();
                 ApiDisplayInfo.flowCount.alarm = true;
                 ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
             }
@@ -327,7 +328,6 @@ namespace Web
                 ApiDisplayInfo.flowCount.alarm = false;
             }
 
-            int nowCount = (int)(e.EnterNum - e.LeaveNum);
 
             ApiDisplayInfo.flowCount.flowRateByDay = (int)e.EnterNum;
             ApiDisplayInfo.flowCount.flowRateByNow = nowCount < 0 ? 0 : nowCount;

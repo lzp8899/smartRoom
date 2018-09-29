@@ -27,6 +27,11 @@ namespace Web
             });
 
             MainApp.Instance.Start();
+            string aa = " {\"seq\":\"1000007418\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007419\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007420\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007421\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}";
+
+         var  bb=   aa.Split(new string[] { "}" },StringSplitOptions.RemoveEmptyEntries); ;
+      var cc=      bb[0] + "}";
         }
+
     }
 }

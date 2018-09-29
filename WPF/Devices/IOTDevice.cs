@@ -99,6 +99,8 @@ namespace Web
         /// <returns>System.Int32.</returns>
         public bool SendResponse(Command command, MessageType messageType = MessageType.response, string par = "")
         {
+            if (!IsWorking)
+                return false;
             if (String.IsNullOrEmpty(par))
             {
                 par = "1";
@@ -123,11 +125,13 @@ namespace Web
         /// <returns>System.Int32.</returns>
         public bool SendMsg(MessageInfo msg)
         {
+            if (!IsWorking)
+                return false;
             try
             {
                 string json = JsonConvert.SerializeObject(msg);
 
-                NLog.LogManager.GetLogger("default").Info("发送数据:{0} {1}", Socket.RemoteEndPoint.ToString(), json);
+                //NLog.LogManager.GetLogger("default").Info("发送数据:{0} {1}", Socket.RemoteEndPoint.ToString(), json);
 
                 byte[] command = Encoding.GetEncoding("gb2312").GetBytes(json);
                 return SendCommand(command) > 0;
@@ -219,13 +223,13 @@ namespace Web
                         ProcessReceive(socketEventArg);
                     }
                 }
-                NLog.LogManager.GetLogger("default").Info("设备上线:{0}", socket?.RemoteEndPoint?.ToString());
+                //NLog.LogManager.GetLogger("default").Info("成功处理设备上线:{0}", socket?.RemoteEndPoint?.ToString());
 
                 return socket.Connected;
             }
             catch (Exception ex)
             {
-                NLog.LogManager.GetLogger("default").Info("ReceiveAsync异常:{0}", socket.RemoteEndPoint.ToString());
+                NLog.LogManager.GetLogger("default").Info("ReceiveAsync异常:{0}", socket?.RemoteEndPoint?.ToString());
                 Disconnect(socket);
             }
             return false;
@@ -317,7 +321,7 @@ namespace Web
             }
             catch (Exception ex)
             {
-                NLog.LogManager.GetLogger("default").Info("接收出错:{0} {1}", socket.RemoteEndPoint.ToString(), ex.Message);
+                NLog.LogManager.GetLogger("default").Info("接收出错:{0} {1}", socket?.RemoteEndPoint.ToString(), ex.Message);
                 Disconnect(socket);
             }
         }
@@ -344,7 +348,11 @@ namespace Web
                 try
                 {
                     msg = Encoding.GetEncoding("gb2312").GetString(receiveBuffer, 0, size).Trim();
-                    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket.RemoteEndPoint.ToString(), msg);
+
+                    //var bb = msg.Split(new string[] { "}" }, StringSplitOptions.RemoveEmptyEntries); ;
+                    //var cc = bb[0] + "}";
+
+                    // NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
                     //反序列化json
                     MessageInfo msgInfo = JsonConvert.DeserializeObject<MessageInfo>(msg);
 
@@ -353,12 +361,25 @@ namespace Web
                         if (msgInfo.Id.Length != 12)
                         {
                             //无效Id 丢弃该包
-                            NLog.LogManager.GetLogger("default").Info("收到设备无效Id数据包:{0} {1}", socket.RemoteEndPoint.ToString(), msg);
+                            NLog.LogManager.GetLogger("default").Info("收到设备无效Id数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
                             return;
                         }
                         //ping 包创建设备 暂时只处理ping包
                         if (msgInfo.command == Command.ping.ToString())
                         {
+                            IsWorking = true;
+                            if (LastMessageInfo == null)
+                            {
+                                NLog.LogManager.GetLogger("default").Info("收到设备首次上线数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+
+                                LastMessageInfo = msgInfo;
+                                ID = LastMessageInfo.Id;
+                                TypeID = CommonHelper.ToSubIds(ID)[1];
+                                DeviceID = CommonHelper.ToSubIds(ID)[2];
+                            }
+                            //else
+                            //    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+
                             SendResponse(Command.ping);
 
                             if (LastMessageInfo.parameter != msgInfo.parameter)
@@ -370,11 +391,16 @@ namespace Web
                                 }
                             }
                         }
+                        if (msgInfo.command == Command.control.ToString())
+                        {
+                            NLog.LogManager.GetLogger("default").Info("收到设备回应数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("解析json数据发生错误:" + ex.Message);
+                    NLog.LogManager.GetLogger("default").Info("解析json数据发生错误，设备:{0} {1} \r\n 错误:{2}", socket?.RemoteEndPoint?.ToString(), msg, ex.Message);
                 }
             }
         }
