@@ -477,6 +477,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Class1.cs" />
     <Compile Include="Common\ConfigHelper.cs" />
     <Compile Include="Controllers\ApiDisplayInfo.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
