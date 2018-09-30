@@ -163,6 +163,7 @@ namespace Web
             return baseCount;
         }
 
+
         /// <summary>
         /// Counts the by time.
         /// </summary>
@@ -183,7 +184,44 @@ namespace Web
             return count;
         }
 
+        Stopwatch baseCountWatchH2S = new Stopwatch();
+        float baseCountH2S = 0;
+        int lastSpanMinutesH2S = 0;
 
+        public float GetH2SBaseCount()
+        {
+            if (baseCountWatchH2S.IsRunning)
+            {
+                if (baseCountWatchH2S.Elapsed.TotalMinutes < lastSpanMinutesH2S)
+                {
+                    return baseCountH2S;
+                }
+            }
+            baseCountWatchH2S.Restart();
+
+            Random r1 = new Random((int)DateTime.Now.Ticks);
+            int count = r1.Next(130, 160);
+            baseCount = (float)(count / 10.00f);
+
+            lastSpanMinutes = r1.Next(1, 10);
+            return baseCount;
+        }
+
+        public float CounterH2SByTime()
+        {
+            float baseCount = GetH2SBaseCount();
+            float scale = 0;
+            if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
+            {
+                scale = 0.61f;
+            }
+            if (DateTime.Now.Hour > 10 && DateTime.Now.Hour <= 23)
+            {
+                scale = 0.92f;
+            }
+            float count = (nowCount30 * scale) + baseCount;
+            return count;
+        }
 
         /// <summary>
         /// Starts this instance.
