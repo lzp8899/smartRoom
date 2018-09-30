@@ -27,7 +27,7 @@ namespace Web
                 Web.Startup.StartWeb(ConfigHelper.WebPort, typeof(ServiceController).Assembly);
             });
 
-            //MainApp.Instance.Start();
+            MainApp.Instance.Start();
             //string one = "{\"seq\":\"1000007418\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}";
             //string two = " {\"seq\":\"1000007418\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007419\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007420\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}{\"seq\":\"1000007421\",\"id\":\"100000100111\",\"city\":\"0028\",\"messagetype\":\"request\",\"command\":\"ping\",\"parameter\":\"0\"}";
             ////one = "100000741";
@@ -35,24 +35,24 @@ namespace Web
             //var cc = bb[0] + "}";
 
 
-            Task.Run(() =>
-            {
-                Random r2 = new Random((int)DateTime.Now.Ticks);
-                Random r3 = new Random((int)DateTime.Now.Ticks);
+            //Task.Run(() =>
+            //{
+            //    Random r2 = new Random((int)DateTime.Now.Ticks);
+            //    Random r3 = new Random((int)DateTime.Now.Ticks);
 
-                while (true)
-                {
-                    //bool result = autoResetEvent.WaitOne(60 * 1000);
-                    //if (result)
-                    //{
-                    //    break;
-                    //}
-                    //SaveJson();
+            //    while (true)
+            //    {
+            //        //bool result = autoResetEvent.WaitOne(60 * 1000);
+            //        //if (result)
+            //        //{
+            //        //    break;
+            //        //}
+            //        //SaveJson();
 
 
-                    Get5To10(r2, r3);
-                }
-            });
+            //        Get5To10(r2, r3);
+            //    }
+            //});
         }
 
         /// <summary>

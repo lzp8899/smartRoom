@@ -144,7 +144,7 @@ namespace Web
         /// Gets the base count.
         /// </summary>
         /// <returns>System.Single.</returns>
-        public float GetNBaseCount()
+        public float GetNH3BaseCount()
         {
             if (baseCountWatch.IsRunning)
             {
@@ -169,7 +169,7 @@ namespace Web
         /// <returns>System.Single.</returns>
         public float CounterNH3ByTime()
         {
-            float baseCount = GetBaseCount();
+            float baseCount = GetNH3BaseCount();
             float scale = 0;
             if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
             {
