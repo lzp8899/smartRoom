@@ -320,16 +320,18 @@ namespace Web
         /// <param name="e">The <see cref="PDCChangedEventArgs"/> instance containing the event data.</param>
         private void HikDevice_PDCChanged(object sender, PDCChangedEventArgs e)
         {
+            NLog.LogManager.GetLogger("default").Info("lastEnterNum：{0} EnterNum：{1}", lastEnterNum, e.EnterNum);
 
             if (lastEnterNum == 0 || (int)e.EnterNum == 0)
             {
-                lastEnterNum = 0;
-                stopwatch.Restart();
+                lastEnterNum = (int)e.EnterNum;
             }
 
-            if (stopwatch.Elapsed.TotalSeconds >= 10)
+            if (stopwatch.Elapsed.TotalSeconds >= 10 || lastEnterNum == 0 || !stopwatch.IsRunning)
             {
                 nowCount = (int)(e.EnterNum - lastEnterNum);
+
+                NLog.LogManager.GetLogger("default").Info("nowCount：{0}", nowCount);
 
                 lastEnterNum = (int)e.EnterNum;
                 stopwatch.Restart();
@@ -368,7 +370,7 @@ namespace Web
             ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
             if (ApiDisplayInfo.flowCount.alarm)
             {
-                ApiDisplayInfo.flowCount.info = String.Format("{0}级客流量报警，启动{1}级除异味作业！", strLevel);
+                ApiDisplayInfo.flowCount.info = String.Format("{0}级客流量报警，启动{1}级除异味作业！", strLevel, strLevel);
             }
 
             ApiDisplayInfo.flowCount.flowRateByNow = nowCount;

@@ -1,4 +1,4 @@
- <add key="FlowAlarmCount" value="10" />  // 客流报警量20
+﻿ <add key="FlowAlarmCount" value="15" />  // 客流报警量20
     <add key="NH3AlarmCount" value="40" /> // 氨气40视为报警
     <add key="PXJMaxCount" value="3000" />//喷香机 最大计数3000
     <add key="PXJAlarmRemainCount" value="20" />//喷香机余次报警阀值
