@@ -213,11 +213,11 @@ namespace Web
             float scale = 0;
             if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
             {
-                scale = 0.61f;
+                scale = 0.34f;
             }
             if (DateTime.Now.Hour > 10 && DateTime.Now.Hour <= 23)
             {
-                scale = 0.92f;
+                scale = 0.67f;
             }
             float count = (nowCount30 * scale) + baseCount;
             return count;
@@ -260,6 +260,9 @@ namespace Web
 
                     float nh3 = CounterNH3ByTime();
                     UpdateNH3(nh3);
+
+                    float h2s = CounterH2SByTime();
+                    UpdateH2S(h2s);
                 }
             });
         }
@@ -298,6 +301,51 @@ namespace Web
             ParserMsg(e.Info, e.Device);
         }
 
+        private void UpdateH2S(float ppmH2S)
+        {
+            ApiDisplayInfo.monitors.ppmH2S = ppmH2S;
+            int level = 5;
+            string strLevel = "五";
+            float nowCount = ppmH2S;
+
+            if (nowCount <= 4.6)
+            {
+                level = 5;
+                strLevel = "五";
+            }
+            if (nowCount > 4.6 && nowCount <= 10)
+            {
+                level = 4;
+                strLevel = "四";
+            }
+            if (nowCount > 10 && nowCount <= 20)
+            {
+                level = 3;
+                strLevel = "三";
+            }
+            if (nowCount > 20 && nowCount <= 25)
+            {
+                level = 2;
+                strLevel = "二";
+            }
+            if (nowCount >= 25)
+            {
+                level = 1;
+                strLevel = "一";
+            }
+
+            ApiDisplayInfo.monitors.ppmH2SLevel = level;
+            ApiDisplayInfo.monitors.alarm = level <= 3;
+            ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
+            if (level <= 3)
+            {
+                ApiDisplayInfo.monitors.ppmH2SInfo = String.Format("{0}级预警，启动{1}级作业！", strLevel, strLevel);
+            }
+            else
+            {
+                ApiDisplayInfo.monitors.ppmH2SInfo = "";
+            }
+        }
         private void UpdateNH3(float ppmNH3)
         {
             ApiDisplayInfo.monitors.ppmNH3 = ppmNH3;
