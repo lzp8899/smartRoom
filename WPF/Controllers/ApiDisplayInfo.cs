@@ -155,7 +155,7 @@ namespace Web
         /// 氨气
         /// </summary>
         /// <value>The PPM n h3.</value>
-        public float ppmNH3 { get; set; }
+        public double ppmNH3 { get; set; }
 
         /// <summary>
         /// 氨气 level.
@@ -169,7 +169,7 @@ namespace Web
         /// 硫化氢
         /// </summary>
         /// <value>The PPM h2 s.</value>
-        public float ppmH2S { get; set; }
+        public double ppmH2S { get; set; }
 
         /// <summary>
         /// 硫化氢 level.

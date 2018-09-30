@@ -9,7 +9,7 @@
     <script src="./vue.min.js"></script>
     <script src="./component.js"></script>
     
-    <title>中策汇川信息技术有限公司</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
             <img class="line_img" src="images/u14.png">
         </div>
         <div class="wc_name">
-            <p><span>A3男厕所--003</span></p>
+            <p><span>A3男厕所</span></p>
         </div>
 
         <div class="line" style="top: 148px;">
@@ -48,10 +48,23 @@
                 <p><span><alarm-wc-icon :level='wcinfo.flowCount.flowRateLevel'></alarm-wc-icon></span></p>
             </div>
             <div class="flow3">
-                <p><span>人次/实时/秒（s）</span></p>
+                <p><span>客/实时秒（sec）</span></p>
             </div>
             <alarm-wc :level='wcinfo.flowCount.flowRateLevel'></alarm-wc>
         </div>
+
+        <!-- <div class="flow" style="top:171px;">
+            <div>
+                <p><span>分时人流量：</span></p>
+            </div>
+            <div style="margin-left: 9px">
+                <p><span>16</span></p>
+            </div>
+            <div style="margin-left: 48px">
+                <p><span>人/分钟(min)</span></p>
+            </div>
+            <img style="margin-top: 10px; margin-left:10px;">
+        </div> -->
 
         <div class="flow" style="top:171px;">
             <div class="flow1">
@@ -61,7 +74,7 @@
                 <p><span>{{wcinfo.flowCount.flowRateByHour}}</span></p>
             </div>
             <div class="flow3">
-                <p><span>人次/实时/小时(H)</span></p>
+                <p><span>客/实时小时(H)</span></p>
             </div>
         </div>
 
@@ -73,7 +86,7 @@
                 <p><span>{{wcinfo.flowCount.flowRateByDay}}</span></p>
             </div>
             <div class="flow3">
-                <p><span>人次/实时/日(D)</span></p>
+                <p><span>客/实时日(D)</span></p>
             </div>
         </div>
 
@@ -81,121 +94,109 @@
             <img class="line_img" src="images/u14.png">
         </div>
 
-        <div class="flow" style="top:238px;">
-            <div class="flow1">
-                <p><span>氨气(NH3)：</span></p>
+        <div style="display: none;">
+            <div class="flow" style="top:238px;">
+                <div class="flow4">
+                    <p><span>氨气(NH3)：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.ppmNH3}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>PPM</span></p>
+                </div>
+                <template v-if="wcinfo.monitors.alarm">
+                    <alarm-wc></alarm-wc>
+                </template>
             </div>
-            <div class="flow2">
-                <p><span>{{wcinfo.monitors.ppmNH3}}</span></p>
+    
+            <div class="flow" style="top:267px;">
+                <div class="flow4">
+                    <p><span>硫化氢(H2S)：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.ppmH2S}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>PPM</span></p>
+                </div>
             </div>
-            <div class="flow22">
-                <p><span><alarm-wc-icon :level='wcinfo.monitors.ppmNH3Level'></alarm-wc-icon></span></p>
+    
+            <div class="flow" style="top:297px;">
+                <div class="flow4">
+                    <p><span>VOC：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.ppmVOC}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>PPM</span></p>
+                </div>
             </div>
-            <div class="flow3">
-                <p><span>PPM</span></p>
+    
+            <div class="flow" style="top:323px;">
+                <div class="flow4">
+                    <p><span>吲哚（C8H7N）：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.ppmC8H7N}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>PPM</span></p>
+                </div>
             </div>
-            <alarm-wc :level='wcinfo.monitors.ppmNH3Level'></alarm-wc>
-        </div>
-
-        <div class="flow" style="top:267px;">
-            <div class="flow1">
-                <p><span>硫化氢(H2S)：</span></p>
+    
+            <div class="flow" style="top:352px;">
+                <div class="flow4">
+                    <p><span>实时温度：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.temperature}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>°C</span></p>
+                </div>
             </div>
-            <div class="flow2">
-                <p><span>{{wcinfo.monitors.ppmH2S}}</span></p>
+    
+            <div class="flow" style="top:380px;">
+                <div class="flow4">
+                    <p><span>实时湿度：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.humidity}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>%</span></p>
+                </div>
             </div>
-            <div class="flow22">
-                <p><span><alarm-wc-icon :level='wcinfo.monitors.ppmH2SLevel'></alarm-wc-icon></span></p>
-            </div>
-            <div class="flow3">
-                <p><span>PPM</span></p>
-            </div>
-            <alarm-wc :level='wcinfo.monitors.ppmH2SLevel'></alarm-wc>
-        </div>
-
-        <div class="flow" style="top:297px;">
-            <div class="flow1">
-                <p><span>实时PM2.5：</span></p>
-            </div>
-            <div class="flow2">
-                <p><span>{{wcinfo.monitors.pm25}}</span></p>
-            </div>
-            <div class="flow22">
-                <p><span><alarm-wc-icon :level='wcinfo.monitors.pm25Level'></alarm-wc-icon></span></p>
-            </div>
-            <div class="flow3">
-                <p><span>μg/m³</span></p>
-            </div>
-            <alarm-wc :level='wcinfo.monitors.pm25Level'></alarm-wc>
-        </div>
-
-        <div class="flow" style="top:326px;">
-            <div class="flow1">
-                <p><span>VOC：</span></p>
-            </div>
-            <div class="flow2_1">
-                <!-- <p><span>{{wcinfo.monitors.ppmVOC}}</span></p> -->
-                <p><span>/?</span></p>
-            </div>
-            <div class="flow3">
-                <p><span>PPM</span></p>
-            </div>
-        </div>
-
-        <div class="flow" style="top:352px;">
-            <div class="flow1">
-                <p><span>吲哚（C8H7N）：</span></p>
-            </div>
-            <div class="flow2_1">
-                <!-- <p><span>{{wcinfo.monitors.ppmC8H7N}}</span></p> -->
-                <p><span>/?</span></p>
-            </div>
-            <div class="flow3">
-                <p><span>PPM</span></p>
-            </div>
-        </div>
-
-        <div class="flow" style="top:380px;">
-            <div class="flow1">
-                <p><span>实时温度：</span></p>
-            </div>
-            <div class="flow2_1">
-                <p><span>{{wcinfo.monitors.temperature}}</span></p>
-            </div>
-            <div class="flow3">
-                <p><span>°C</span></p>
-            </div>
-        </div>
-
-        <div class="flow" style="top:409px;">
-            <div class="flow1">
-                <p><span>实时湿度：</span></p>
-            </div>
-            <div class="flow2_1">
-                <p><span>{{wcinfo.monitors.humidity}}</span></p>
-            </div>
-            <div class="flow3">
-                <p><span>%</span></p>
+    
+            <div class="flow" style="top:409px;">
+                <div class="flow4">
+                    <p><span>实时PM2.5：</span></p>
+                </div>
+                <div class="flow5">
+                    <p><span>{{wcinfo.monitors.pm25}}</span></p>
+                </div>
+                <div class="flow6">
+                    <p><span>μg/m³</span></p>
+                </div>
             </div>
         </div>
-        
 
-        <!-- 绿色 黄色 红色 深红  -->
-
-        <div class="line" style="top:455px;">
+        <div class="line" style="top:241px;">
             <img class="line_img" src="images/u14.png">
         </div>
 
-        <div class="info_msg_title ">
+        <div class="info_msg_title " style="top: 238px;">
             <p><span>信息提示</span></p>
         </div>
 
-        <div class="line" style="top:500px;">
+        <div class="line" style="top:297px;">
             <img class="line_img" src="images/u14.png">
         </div>
 
-        <div id="u498_text" class="info_msg" style="left: 0px; width: 290px; transform-origin: 145px 9.5px 0px; visibility: inherit;">
-            <div class="info_msg_div" >
+        <div id="u498_text" class="info_msg" style="top: 295px;left: 0px; width: 290px; transform-origin: 145px 9.5px 0px; visibility: inherit;">
+            <div class="info_msg_div" style="height: 550px;" >
                 <div v-for="item in wcinfo.malfunctionmsg" style="padding-bottom: 10px;">
                     <div>
                         <span style="float: left; width: 80%;">{{item.info}}</span>

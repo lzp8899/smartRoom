@@ -136,31 +136,31 @@ namespace Web
         /// </summary>
         HikDevice hikDevice = new HikDevice(ConfigHelper.HikIP, 8000, ConfigHelper.HikUserName, ConfigHelper.HikPwd);
 
-        Stopwatch baseCountWatch = new Stopwatch();
-        float baseCount = 0;
-        int lastSpanMinutes = 0;
+        Stopwatch baseCountWatchNH3 = new Stopwatch();
+        double baseCountNH3 = 0;
+        int lastSpanMinutesNH3 = 0;
 
         /// <summary>
         /// Gets the base count.
         /// </summary>
         /// <returns>System.Single.</returns>
-        public float GetNH3BaseCount()
+        public double GetNH3BaseCount()
         {
-            if (baseCountWatch.IsRunning)
+            if (baseCountWatchNH3.IsRunning)
             {
-                if (baseCountWatch.Elapsed.TotalMinutes < lastSpanMinutes)
+                if (baseCountWatchNH3.Elapsed.TotalMinutes < lastSpanMinutesNH3)
                 {
-                    return baseCount;
+                    return baseCountNH3;
                 }
             }
-            baseCountWatch.Restart();
+            baseCountWatchNH3.Restart();
 
             Random r1 = new Random((int)DateTime.Now.Ticks);
             int count = r1.Next(280, 319);
-            baseCount = (float)(count / 10.00f);
+            baseCountNH3 = (float)(count / 10.00f);
 
-            lastSpanMinutes = r1.Next(1, 10);
-            return baseCount;
+            lastSpanMinutesNH3 = r1.Next(1, 10);
+            return baseCountNH3;
         }
 
 
@@ -168,27 +168,28 @@ namespace Web
         /// Counts the by time.
         /// </summary>
         /// <returns>System.Single.</returns>
-        public float CounterNH3ByTime()
+        public double CounterNH3ByTime()
         {
-            float baseCount = GetNH3BaseCount();
-            float scale = 0;
-            if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
+            double baseCount = GetNH3BaseCount();
+            double scale = 0;
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 10)
             {
                 scale = 1.12f;
             }
-            if (DateTime.Now.Hour > 10 && DateTime.Now.Hour <= 23)
+            if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 23)
             {
                 scale = 1.421f;
             }
-            float count = (nowCount30 * scale) + baseCount;
+
+            double count = Math.Round((nowCount * scale) + baseCount, 1);
             return count;
         }
 
         Stopwatch baseCountWatchH2S = new Stopwatch();
-        float baseCountH2S = 0;
+        double baseCountH2S = 0;
         int lastSpanMinutesH2S = 0;
 
-        public float GetH2SBaseCount()
+        public double GetH2SBaseCount()
         {
             if (baseCountWatchH2S.IsRunning)
             {
@@ -201,25 +202,25 @@ namespace Web
 
             Random r1 = new Random((int)DateTime.Now.Ticks);
             int count = r1.Next(130, 160);
-            baseCount = (float)(count / 10.00f);
+            baseCountH2S = (float)(count / 10.00f);
 
-            lastSpanMinutes = r1.Next(1, 10);
-            return baseCount;
+            lastSpanMinutesH2S = r1.Next(1, 10);
+            return baseCountH2S;
         }
 
-        public float CounterH2SByTime()
+        public double CounterH2SByTime()
         {
-            float baseCount = GetH2SBaseCount();
-            float scale = 0;
-            if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
+            double baseCount = GetH2SBaseCount();
+            double scale = 0;
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Hour < 10)
             {
                 scale = 0.34f;
             }
-            if (DateTime.Now.Hour > 10 && DateTime.Now.Hour <= 23)
+            if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 23)
             {
                 scale = 0.67f;
             }
-            float count = (nowCount30 * scale) + baseCount;
+            double count = Math.Round((nowCount30 * scale) + baseCount, 1);
             return count;
         }
 
@@ -258,10 +259,10 @@ namespace Web
 
                     Thread.Sleep(2000);
 
-                    float nh3 = CounterNH3ByTime();
+                    double nh3 = CounterNH3ByTime();
                     UpdateNH3(nh3);
 
-                    float h2s = CounterH2SByTime();
+                    double h2s = CounterH2SByTime();
                     UpdateH2S(h2s);
                 }
             });
@@ -301,12 +302,12 @@ namespace Web
             ParserMsg(e.Info, e.Device);
         }
 
-        private void UpdateH2S(float ppmH2S)
+        private void UpdateH2S(double ppmH2S)
         {
             ApiDisplayInfo.monitors.ppmH2S = ppmH2S;
             int level = 5;
             string strLevel = "五";
-            float nowCount = ppmH2S;
+            double nowCount = ppmH2S;
 
             if (nowCount <= 4.6)
             {
@@ -346,12 +347,12 @@ namespace Web
                 ApiDisplayInfo.monitors.ppmH2SInfo = "";
             }
         }
-        private void UpdateNH3(float ppmNH3)
+        private void UpdateNH3(double ppmNH3)
         {
             ApiDisplayInfo.monitors.ppmNH3 = ppmNH3;
             int level = 5;
             string strLevel = "五";
-            float nowCount = ppmNH3;
+            double nowCount = ppmNH3;
 
             if (nowCount <= 20)
             {
