@@ -6,7 +6,7 @@
     "flowRateByDay": 0,
     "alarm": false,
     "alarmtime": "2018-09-16 22:22:02",
-    "info": "人流数据超标，马上启动喷香作业和除异味作业！"
+    "info": "一级客流量报警，启动一级除异味作业！"
   },
   "monitors": {
     "id": "100000105100",
@@ -18,7 +18,7 @@
     "temperature": 28.0,
     "humidity": 90.0,
     "pm25": 120.0,
-    "alarm": true,
+    "alarm": false,
     "alarmtime": "2018-09-16 20:23:03",
     "info": "人流数据超标，马上启动喷香作业和除异味作业！"
   },

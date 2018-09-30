@@ -100,7 +100,10 @@ namespace Web
         public bool SendResponse(Command command, MessageType messageType = MessageType.response, string par = "")
         {
             if (!IsWorking)
+            {
                 return false;
+            }
+
             if (String.IsNullOrEmpty(par))
             {
                 par = "1";
@@ -126,7 +129,10 @@ namespace Web
         public bool SendMsg(MessageInfo msg)
         {
             if (!IsWorking)
+            {
                 return false;
+            }
+
             try
             {
                 string json = JsonConvert.SerializeObject(msg);
@@ -344,61 +350,70 @@ namespace Web
         {
             if (receiveBuffer != null && size <= receiveBuffer.Length)
             {
-                string msg = String.Empty;
+                string allText = String.Empty;
                 try
                 {
-                    msg = Encoding.GetEncoding("gb2312").GetString(receiveBuffer, 0, size).Trim();
+                    allText = Encoding.GetEncoding("gb2312").GetString(receiveBuffer, 0, size).Trim();
 
-                    //var bb = msg.Split(new string[] { "}" }, StringSplitOptions.RemoveEmptyEntries); ;
-                    //var cc = bb[0] + "}";
-
-                    // NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
-                    //反序列化json
-                    MessageInfo msgInfo = JsonConvert.DeserializeObject<MessageInfo>(msg);
-
-                    if (msgInfo != null)
+                    var msgs = allText.Split(new string[] { "}" }, StringSplitOptions.RemoveEmptyEntries);
+                    
+                    foreach (var item in msgs)
                     {
-                        if (msgInfo.Id.Length != 12)
+                        var oneMsg = item + "}";
+                        try
                         {
-                            //无效Id 丢弃该包
-                            NLog.LogManager.GetLogger("default").Info("收到设备无效Id数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
-                            return;
-                        }
-                        //ping 包创建设备 暂时只处理ping包
-                        if (msgInfo.command == Command.ping.ToString())
-                        {
-                            if (LastMessageInfo == null)
+                            //NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+                            //反序列化json
+                            MessageInfo msgInfo = JsonConvert.DeserializeObject<MessageInfo>(oneMsg);
+
+                            if (msgInfo != null)
                             {
-                                NLog.LogManager.GetLogger("default").Info("收到设备首次上线数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+                                if (msgInfo.Id.Length != 12)
+                                {
+                                    //无效Id 丢弃该包
+                                    NLog.LogManager.GetLogger("default").Info("收到设备无效Id数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), allText);
+                                    return;
+                                }
+                                //ping 包创建设备 暂时只处理ping包
+                                if (msgInfo.command == Command.ping.ToString())
+                                {
+                                    if (LastMessageInfo == null)
+                                    {
+                                        NLog.LogManager.GetLogger("default").Info("收到设备首次上线数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), allText);
 
-                                LastMessageInfo = msgInfo;
-                                ID = LastMessageInfo.Id;
-                                TypeID = CommonHelper.ToSubIds(ID)[1];
-                                DeviceID = CommonHelper.ToSubIds(ID)[2];
-                                DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
-                            }
-                            //else
-                            //    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+                                        LastMessageInfo = msgInfo;
+                                        ID = LastMessageInfo.Id;
+                                        TypeID = CommonHelper.ToSubIds(ID)[1];
+                                        DeviceID = CommonHelper.ToSubIds(ID)[2];
+                                        DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
+                                    }
+                                    //else
+                                    //    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
 
-                            SendResponse(Command.ping);
-                            IsWorking = true;
+                                    SendResponse(Command.ping);
+                                    IsWorking = true;
 
-                            if (LastMessageInfo.parameter != msgInfo.parameter)
-                            {
-                                LastMessageInfo = msgInfo;
-                                DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
+                                    if (LastMessageInfo.parameter != msgInfo.parameter)
+                                    {
+                                        LastMessageInfo = msgInfo;
+                                        DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
+                                    }
+                                }
+                                if (msgInfo.command == Command.control.ToString())
+                                {
+                                    NLog.LogManager.GetLogger("default").Info("收到设备回应数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), allText);
+                                }
                             }
                         }
-                        if (msgInfo.command == Command.control.ToString())
+                        catch (Exception ex1)
                         {
-                            NLog.LogManager.GetLogger("default").Info("收到设备回应数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
-
+                            NLog.LogManager.GetLogger("default").Error("解析单条json发生错误:{0} {1}", socket?.RemoteEndPoint?.ToString(), oneMsg);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    NLog.LogManager.GetLogger("default").Info("解析json数据发生错误，设备:{0} {1} \r\n 错误:{2}", socket?.RemoteEndPoint?.ToString(), msg, ex.Message);
+                    NLog.LogManager.GetLogger("default").Info("解析json数据发生错误，设备:{0} {1} \r\n 错误:{2}", socket?.RemoteEndPoint?.ToString(), allText, ex.Message);
                 }
             }
         }

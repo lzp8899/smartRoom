@@ -46,8 +46,6 @@ namespace Web
         /// <param name="e">The <see cref="ConnectedEventArgs"/> instance containing the event data.</param>
         private void TcpListener_Connected(object sender, ConnectedEventArgs e)
         {
-            //e.Used = ReceiveAsync(e.Socket);
-
             IOTDevice device = new IOTDevice();
             bool result = device.ReceiveAsync(e.Socket);
 

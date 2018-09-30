@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -215,7 +216,8 @@ namespace Web
                 }
                 if (newMessageInfo.messagetype == MessageType.request.ToString())
                 {
-                    if (newMessageInfo.TypeID == "101" || newMessageInfo.TypeID == "102" || newMessageInfo.TypeID == "103")
+                    //if (newMessageInfo.TypeID == "101" || newMessageInfo.TypeID == "102" || newMessageInfo.TypeID == "103")
+                    if (false)
                     {
                         int remainCount = 0;
                         bool alarm = false;
@@ -306,6 +308,10 @@ namespace Web
             }
         }
 
+        Stopwatch stopwatch = new Stopwatch();
+        private int lastEnterNum = 0;
+        //当前人数
+        int nowCount = 0;
 
         /// <summary>
         /// Handles the PDCChanged event of the HikDevice control.
@@ -314,23 +320,59 @@ namespace Web
         /// <param name="e">The <see cref="PDCChangedEventArgs"/> instance containing the event data.</param>
         private void HikDevice_PDCChanged(object sender, PDCChangedEventArgs e)
         {
-            //当前人数大于报警阀值，控制智能开关和喷香机
-            int nowCount = (int)(e.EnterNum - e.LeaveNum);
-            if (nowCount >= ConfigHelper.FlowAlarmCount)
+
+            if (lastEnterNum == 0 || (int)e.EnterNum == 0)
             {
-                //deviceServer.OpenZNKG();
-                //deviceServer.OpenPXJ();
-                ApiDisplayInfo.flowCount.alarm = true;
-                ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
-            }
-            else
-            {
-                ApiDisplayInfo.flowCount.alarm = false;
+                lastEnterNum = 0;
+                stopwatch.Restart();
             }
 
+            if (stopwatch.Elapsed.TotalSeconds >= 10)
+            {
+                nowCount = (int)(e.EnterNum - lastEnterNum);
 
+                lastEnterNum = (int)e.EnterNum;
+                stopwatch.Restart();
+            }
+
+            int level = 5;
+            string strLevel = "五";
+            if (nowCount <= 11)
+            {
+                level = 5;
+                strLevel = "五";
+            }
+            if (nowCount > 11 && nowCount <= 17)
+            {
+                level = 4;
+                strLevel = "四";
+            }
+            if (nowCount > 17 && nowCount <= 25)
+            {
+                level = 3;
+                strLevel = "三";
+            }
+            if (nowCount > 25 && nowCount <= 32)
+            {
+                level = 2;
+                strLevel = "二";
+            }
+            if (nowCount >= 32)
+            {
+                level = 1;
+                strLevel = "一";
+            }
+
+            ApiDisplayInfo.flowCount.flowRateLevel = level;
+            ApiDisplayInfo.flowCount.alarm = level <= 3;
+            ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
+            if (ApiDisplayInfo.flowCount.alarm)
+            {
+                ApiDisplayInfo.flowCount.info = String.Format("{0}级客流量报警，启动{1}级除异味作业！", strLevel);
+            }
+
+            ApiDisplayInfo.flowCount.flowRateByNow = nowCount;
             ApiDisplayInfo.flowCount.flowRateByDay = (int)e.EnterNum;
-            ApiDisplayInfo.flowCount.flowRateByNow = nowCount < 0 ? 0 : nowCount;
             ApiDisplayInfo.flowCount.flowRateByHour = ApiDisplayInfo.flowCount.flowRateByDay / (DateTime.Now.Hour + 1);
         }
     }

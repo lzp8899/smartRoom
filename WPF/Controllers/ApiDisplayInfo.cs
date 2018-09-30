@@ -101,11 +101,19 @@ namespace Web
         /// </summary>
         /// <value>The flow rate by day.</value>
         public int flowRateByDay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flow rate level.
+        /// </summary>
+        /// <value>The flow rate level.</value>
+        public int flowRateLevel { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="FlowCount"/> is alarm.
         /// </summary>
         /// <value><c>true</c> if alarm; otherwise, <c>false</c>.</value>
         public bool alarm { get; set; }
+
         /// <summary>
         /// Gets or sets the alarmtime.
         /// </summary>
