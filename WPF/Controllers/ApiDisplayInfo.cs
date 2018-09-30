@@ -152,15 +152,29 @@ namespace Web
         public string name { get; set; }
 
         /// <summary>
-        /// Gets or sets the PPM n h3.
+        /// 氨气
         /// </summary>
         /// <value>The PPM n h3.</value>
         public float ppmNH3 { get; set; }
+
         /// <summary>
-        /// Gets or sets the PPM h2 s.
+        /// 氨气 level.
+        /// </summary>
+        /// <value>The PPM n h3 level.</value>
+        public int ppmNH3Level { get; set; }
+
+        /// <summary>
+        /// 硫化氢
         /// </summary>
         /// <value>The PPM h2 s.</value>
         public float ppmH2S { get; set; }
+
+        /// <summary>
+        /// 硫化氢 level.
+        /// </summary>
+        /// <value>The PPM h2 s level.</value>
+        public int ppmH2SLevel { get; set; }
+
         /// <summary>
         /// Gets or sets the PPM voc.
         /// </summary>
@@ -186,6 +200,13 @@ namespace Web
         /// </summary>
         /// <value>The PM25.</value>
         public float pm25 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PM25 level.
+        /// </summary>
+        /// <value>The PM25 level.</value>
+        public int pm25Level { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Monitors"/> is alarm.
         /// </summary>

@@ -261,12 +261,87 @@ namespace Web
                         if (result)
                         {
                             ApiDisplayInfo.monitors.ppmNH3 = ppmNH3;
+                            int level = 5;
+                            string strLevel = "五";
+                            float nowCount = ppmNH3;
+
+                            if (nowCount <= 20)
+                            {
+                                level = 5;
+                                strLevel = "五";
+                            }
+                            if (nowCount > 20 && nowCount <= 36)
+                            {
+                                level = 4;
+                                strLevel = "四";
+                            }
+                            if (nowCount > 36 && nowCount <= 50)
+                            {
+                                level = 3;
+                                strLevel = "三";
+                            }
+                            if (nowCount > 50 && nowCount <= 70)
+                            {
+                                level = 2;
+                                strLevel = "二";
+                            }
+                            if (nowCount >= 70)
+                            {
+                                level = 1;
+                                strLevel = "一";
+                            }
+
+                            ApiDisplayInfo.monitors.ppmNH3Level = level;
+                            ApiDisplayInfo.monitors.alarm = level <= 3;
+                            ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
+                            if (ApiDisplayInfo.monitors.alarm)
+                            {
+                                ApiDisplayInfo.monitors.info = String.Format("{0}级氨气报警，启动{1}级除异味作业！", strLevel, strLevel);
+                            }
                         }
+
                         float ppmH2S = 0;
                         result = float.TryParse(datas[1], out ppmH2S);
                         if (result)
                         {
                             ApiDisplayInfo.monitors.ppmH2S = ppmH2S;
+                            int level = 5;
+                            string strLevel = "五";
+                            float nowCount = ppmH2S;
+
+                            if (nowCount <= 4.6)
+                            {
+                                level = 5;
+                                strLevel = "五";
+                            }
+                            if (nowCount > 4.6 && nowCount <= 10)
+                            {
+                                level = 4;
+                                strLevel = "四";
+                            }
+                            if (nowCount > 10 && nowCount <= 20)
+                            {
+                                level = 3;
+                                strLevel = "三";
+                            }
+                            if (nowCount > 20 && nowCount <= 25)
+                            {
+                                level = 2;
+                                strLevel = "二";
+                            }
+                            if (nowCount >= 25)
+                            {
+                                level = 1;
+                                strLevel = "一";
+                            }
+
+                            ApiDisplayInfo.monitors.ppmH2S = level;
+                            ApiDisplayInfo.monitors.alarm = level <= 3;
+                            ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
+                            if (ApiDisplayInfo.monitors.alarm)
+                            {
+                                ApiDisplayInfo.monitors.info = String.Format("{0}级硫化氢报警，启动{1}级除异味作业！", strLevel, strLevel);
+                            }
                         }
                     }
 
@@ -293,9 +368,48 @@ namespace Web
                         }
                         float pm25 = 0;
                         result = float.TryParse(datas[2], out pm25);
+
                         if (result)
                         {
                             ApiDisplayInfo.monitors.pm25 = pm25;
+                            int level = 5;
+                            string strLevel = "五";
+                            float nowCount = pm25;
+
+                            if (nowCount <= 35)
+                            {
+                                level = 5;
+                                strLevel = "五";
+                            }
+                            if (nowCount > 35 && nowCount <= 75)
+                            {
+                                level = 4;
+                                strLevel = "四";
+                            }
+                            if (nowCount > 75 && nowCount <= 115)
+                            {
+                                level = 3;
+                                strLevel = "三";
+                            }
+                            if (nowCount > 150 && nowCount <= 250)
+                            {
+                                level = 2;
+                                strLevel = "二";
+                            }
+                            if (nowCount >= 250)
+                            {
+                                level = 1;
+                                strLevel = "一";
+                            }
+
+                            ApiDisplayInfo.monitors.pm25Level = level;
+                            ApiDisplayInfo.monitors.alarm = level <= 3;
+                            ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
+                            if (ApiDisplayInfo.monitors.alarm)
+                            {
+                                ApiDisplayInfo.monitors.info = String.Format("{0}级PM2.5报警，启动{1}级除异味作业！", strLevel, strLevel);
+                            }
+
                         }
                     }
                 }
