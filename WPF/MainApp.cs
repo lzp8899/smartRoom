@@ -144,7 +144,7 @@ namespace Web
 
             listener = new AsyncTcpListener(6000);
             deviceServer = new IOTDeviceManager(listener);
-            ////deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
+            deviceServer.DeviceStateChanged += DeviceServer_DeviceStateChanged;
             deviceServer.Start();
             listener.Start();
 
@@ -284,13 +284,13 @@ namespace Web
                             ApiDisplayInfo.monitors.temperature = temperature;
                         }
                         float humidity = 0;
-                        result = float.TryParse(datas[0], out humidity);
+                        result = float.TryParse(datas[1], out humidity);
                         if (result)
                         {
                             ApiDisplayInfo.monitors.humidity = humidity;
                         }
                         float pm25 = 0;
-                        result = float.TryParse(datas[0], out pm25);
+                        result = float.TryParse(datas[2], out pm25);
                         if (result)
                         {
                             ApiDisplayInfo.monitors.pm25 = pm25;

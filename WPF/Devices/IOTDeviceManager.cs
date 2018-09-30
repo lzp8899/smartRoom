@@ -53,6 +53,7 @@ namespace Web
 
             if (result)
             {
+                device.DeviceStateChanged += Device_DeviceStateChanged;
                 lock (devices)
                 {
                     devices.Add(device);
@@ -62,10 +63,16 @@ namespace Web
             NLog.LogManager.GetLogger("default").Info("设备上线:{0} 总数:{1} ", e?.Socket?.RemoteEndPoint?.ToString(), devices.Count);
         }
 
-        private void CreateIOTDevice()
+        private void Device_DeviceStateChanged(object sender, DeviceStateChangedEventArgs e)
         {
+            DeviceStateChanged?.Invoke(this, e);
 
         }
+
+        /// <summary>
+        /// 当设备状态信息改变时发生。
+        /// </summary>
+        public event EventHandler<DeviceStateChangedEventArgs> DeviceStateChanged;
 
         /// <summary>
         /// The check connect thread

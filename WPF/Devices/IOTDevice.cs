@@ -367,7 +367,6 @@ namespace Web
                         //ping 包创建设备 暂时只处理ping包
                         if (msgInfo.command == Command.ping.ToString())
                         {
-                            IsWorking = true;
                             if (LastMessageInfo == null)
                             {
                                 NLog.LogManager.GetLogger("default").Info("收到设备首次上线数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
@@ -376,19 +375,18 @@ namespace Web
                                 ID = LastMessageInfo.Id;
                                 TypeID = CommonHelper.ToSubIds(ID)[1];
                                 DeviceID = CommonHelper.ToSubIds(ID)[2];
+                                DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
                             }
                             //else
                             //    NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
 
                             SendResponse(Command.ping);
+                            IsWorking = true;
 
                             if (LastMessageInfo.parameter != msgInfo.parameter)
                             {
                                 LastMessageInfo = msgInfo;
-                                if (DeviceStateChanged != null)
-                                {
-                                    DeviceStateChanged(this, new DeviceStateChangedEventArgs(msgInfo, this));
-                                }
+                                DeviceStateChanged?.Invoke(this, new DeviceStateChangedEventArgs(msgInfo, this));
                             }
                         }
                         if (msgInfo.command == Command.control.ToString())
