@@ -136,6 +136,55 @@ namespace Web
         /// </summary>
         HikDevice hikDevice = new HikDevice(ConfigHelper.HikIP, 8000, ConfigHelper.HikUserName, ConfigHelper.HikPwd);
 
+        Stopwatch baseCountWatch = new Stopwatch();
+        float baseCount = 0;
+        int lastSpanMinutes = 0;
+
+        /// <summary>
+        /// Gets the base count.
+        /// </summary>
+        /// <returns>System.Single.</returns>
+        public float GetNBaseCount()
+        {
+            if (baseCountWatch.IsRunning)
+            {
+                if (baseCountWatch.Elapsed.TotalMinutes < lastSpanMinutes)
+                {
+                    return baseCount;
+                }
+            }
+            baseCountWatch.Restart();
+
+            Random r1 = new Random((int)DateTime.Now.Ticks);
+            int count = r1.Next(280, 319);
+            baseCount = (float)(count / 10.00f);
+
+            lastSpanMinutes = r1.Next(1, 10);
+            return baseCount;
+        }
+
+        /// <summary>
+        /// Counts the by time.
+        /// </summary>
+        /// <returns>System.Single.</returns>
+        public float CounterNH3ByTime()
+        {
+            float baseCount = GetBaseCount();
+            float scale = 0;
+            if (DateTime.Now.Hour > 5 && DateTime.Now.Hour <= 10)
+            {
+                scale = 1.12f;
+            }
+            if (DateTime.Now.Hour > 10 && DateTime.Now.Hour <= 23)
+            {
+                scale = 1.421f;
+            }
+            float count = (nowCount30 * scale) + baseCount;
+            return count;
+        }
+
+
+
         /// <summary>
         /// Starts this instance.
         /// </summary>
@@ -158,18 +207,23 @@ namespace Web
             var rt = JsonConvert.SerializeObject(request);
             NLog.LogManager.GetLogger("default").Info("启动完成");
 
-            //Task.Run(() =>
-            //{
-            //    while (true)
-            //    {
-            //        bool result = autoResetEvent.WaitOne(60 * 1000);
-            //        if (result)
-            //        {
-            //            break;
-            //        }
-            //        SaveJson();
-            //    }
-            //});
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    //bool result = autoResetEvent.WaitOne(60 * 1000);
+                    //if (result)
+                    //{
+                    //    break;
+                    //}
+                    //SaveJson();
+
+                    Thread.Sleep(2000);
+
+                    float nh3 = CounterNH3ByTime();
+                    UpdateNH3(nh3);
+                }
+            });
         }
 
         private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
@@ -204,6 +258,52 @@ namespace Web
         private void DeviceServer_DeviceStateChanged(object sender, DeviceStateChangedEventArgs e)
         {
             ParserMsg(e.Info, e.Device);
+        }
+
+        private void UpdateNH3(float ppmNH3)
+        {
+            ApiDisplayInfo.monitors.ppmNH3 = ppmNH3;
+            int level = 5;
+            string strLevel = "五";
+            float nowCount = ppmNH3;
+
+            if (nowCount <= 20)
+            {
+                level = 5;
+                strLevel = "五";
+            }
+            if (nowCount > 20 && nowCount <= 36)
+            {
+                level = 4;
+                strLevel = "四";
+            }
+            if (nowCount > 36 && nowCount <= 50)
+            {
+                level = 3;
+                strLevel = "三";
+            }
+            if (nowCount > 50 && nowCount <= 70)
+            {
+                level = 2;
+                strLevel = "二";
+            }
+            if (nowCount >= 70)
+            {
+                level = 1;
+                strLevel = "一";
+            }
+
+            ApiDisplayInfo.monitors.ppmNH3Level = level;
+            ApiDisplayInfo.monitors.alarm = level <= 3;
+            ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
+            if (level <= 3)
+            {
+                ApiDisplayInfo.monitors.ppmNH3Info = String.Format("{0}级预警，启动{1}级作业！", strLevel, strLevel);
+            }
+            else
+            {
+                ApiDisplayInfo.monitors.ppmNH3Info = "";
+            }
         }
 
         private bool ParserMsg(MessageInfo newMessageInfo, IOTDevice device)
@@ -248,7 +348,8 @@ namespace Web
                         });
                     }
 
-                    if (newMessageInfo.TypeID == "105")
+                    // if (newMessageInfo.TypeID == "105")
+                    if (false)
                     {
                         string[] datas = newMessageInfo.parameter.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                         if (datas.Length < 2)
@@ -434,8 +535,13 @@ namespace Web
             }
         }
 
+        Stopwatch stopwatch30s = new Stopwatch();
+        private int lastEnterNum30s = 0;
+        int nowCount30 = 0;
+
         Stopwatch stopwatch = new Stopwatch();
         private int lastEnterNum = 0;
+
         //当前人数
         int nowCount = 0;
 
@@ -450,12 +556,11 @@ namespace Web
 
             if (e.Mode == 0)
             {
-
+                //10 s 
                 if (lastEnterNum == 0 || (int)e.EnterNum == 0)
                 {
                     lastEnterNum = (int)e.EnterNum;
                 }
-
                 if (stopwatch.Elapsed.TotalSeconds >= 10 || lastEnterNum == 0 || !stopwatch.IsRunning)
                 {
                     nowCount = (int)(e.EnterNum - lastEnterNum);
@@ -464,6 +569,22 @@ namespace Web
 
                     lastEnterNum = (int)e.EnterNum;
                     stopwatch.Restart();
+                }
+
+                //30s 
+                if (lastEnterNum30s == 0 || (int)e.EnterNum == 0)
+                {
+                    lastEnterNum30s = (int)e.EnterNum;
+                }
+
+                if (stopwatch30s.Elapsed.TotalSeconds >= 30 || lastEnterNum30s == 0 || !stopwatch30s.IsRunning)
+                {
+                    nowCount30 = (int)(e.EnterNum - lastEnterNum30s);
+
+                    NLog.LogManager.GetLogger("default").Info("nowCount30：{0}", nowCount30);
+
+                    lastEnterNum30s = (int)e.EnterNum;
+                    stopwatch30s.Restart();
                 }
 
                 int level = 5;
