@@ -13,11 +13,15 @@ namespace Web
         /// </summary>
         /// <param name="enterNumber">The enter number.</param>
         /// <param name="leaveNumber">The leave number.</param>
-        public PDCChangedEventArgs(uint enterNumber, uint leaveNumber)
+        public PDCChangedEventArgs(uint enterNumber, uint leaveNumber, byte mode)
         {
             EnterNum = enterNumber;
             LeaveNum = leaveNumber;
+            Mode = mode;
         }
+
+        public byte Mode { get; set; }             // 0 单帧统计结果 1最小时间段统计结果  
+
         /// <summary>
         /// Gets or sets the leave number.
         /// </summary>
@@ -29,5 +33,5 @@ namespace Web
         /// </summary>
         /// <value>The enter number.</value>
         public uint EnterNum { get; set; }        // 进入人数
-	}
+    }
 }

@@ -189,7 +189,7 @@ namespace Web
 
             if (PDCChanged != null)
             {
-                PDCChanged(this, new PDCChangedEventArgs(struPDCInfo.dwEnterNum, struPDCInfo.dwLeaveNum));
+                PDCChanged(this, new PDCChangedEventArgs(struPDCInfo.dwEnterNum, struPDCInfo.dwLeaveNum, struPDCInfo.byMode));
             }
             if (struPDCInfo.byMode == 0) //单帧统计结果，此处为UTC时间
             {
@@ -208,6 +208,7 @@ namespace Web
                 + string.Format("{0:D2}", m_struStatTime.tmStart.dwMinute) + ":"
                 + string.Format("{0:D2}", m_struStatTime.tmStart.dwSecond);
 
+
                 //结束时间
                 string strEndTime = string.Format("{0:D4}", m_struStatTime.tmEnd.dwYear) +
                 string.Format("{0:D2}", m_struStatTime.tmEnd.dwMonth) +
@@ -216,9 +217,10 @@ namespace Web
                 + string.Format("{0:D2}", m_struStatTime.tmEnd.dwMinute) + ":"
                 + string.Format("{0:D2}", m_struStatTime.tmEnd.dwSecond);
 
-                //stringAlarm = stringAlarm + "，最小时间段统计，开始时间：" + strStartTime + "，结束时间：" + strEndTime;
+
+                stringAlarm = stringAlarm + "，最小时间段统计，开始时间：" + strStartTime + "，结束时间：" + strEndTime;
             }
-            //NLog.LogManager.GetLogger("default").Info("stringAlarm");
+            NLog.LogManager.GetLogger("default").Info(stringAlarm);
             Marshal.FreeHGlobal(ptrPDCUnion);
         }
 

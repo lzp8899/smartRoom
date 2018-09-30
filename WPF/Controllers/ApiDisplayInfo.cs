@@ -163,6 +163,8 @@ namespace Web
         /// <value>The PPM n h3 level.</value>
         public int ppmNH3Level { get; set; }
 
+        public string ppmNH3Info { get; set; }
+
         /// <summary>
         /// 硫化氢
         /// </summary>
@@ -174,6 +176,8 @@ namespace Web
         /// </summary>
         /// <value>The PPM h2 s level.</value>
         public int ppmH2SLevel { get; set; }
+
+        public string ppmH2SInfo { get; set; }
 
         /// <summary>
         /// Gets or sets the PPM voc.
@@ -206,6 +210,8 @@ namespace Web
         /// </summary>
         /// <value>The PM25 level.</value>
         public int pm25Level { get; set; }
+
+        public string pm25Info { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Monitors"/> is alarm.

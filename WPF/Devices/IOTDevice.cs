@@ -362,7 +362,7 @@ namespace Web
                         var oneMsg = item + "}";
                         try
                         {
-                            //NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), msg);
+                            NLog.LogManager.GetLogger("default").Info("收到设备数据包:{0} {1}", socket?.RemoteEndPoint?.ToString(), oneMsg);
                             //反序列化json
                             MessageInfo msgInfo = JsonConvert.DeserializeObject<MessageInfo>(oneMsg);
 
