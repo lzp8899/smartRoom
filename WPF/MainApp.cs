@@ -294,9 +294,13 @@ namespace Web
                             ApiDisplayInfo.monitors.ppmNH3Level = level;
                             ApiDisplayInfo.monitors.alarm = level <= 3;
                             ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
-                            if (ApiDisplayInfo.monitors.alarm)
+                            if (level <= 3)
                             {
-                                ApiDisplayInfo.monitors.info = String.Format("{0}级氨气报警，启动{1}级除异味作业！", strLevel, strLevel);
+                                ApiDisplayInfo.monitors.ppmNH3Info = String.Format("{0}级预警，启动{1}级作业！", strLevel, strLevel);
+                            }
+                            else
+                            {
+                                ApiDisplayInfo.monitors.ppmNH3Info = "";
                             }
                         }
 
@@ -338,9 +342,13 @@ namespace Web
                             ApiDisplayInfo.monitors.ppmH2S = level;
                             ApiDisplayInfo.monitors.alarm = level <= 3;
                             ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
-                            if (ApiDisplayInfo.monitors.alarm)
+                            if (level <= 3)
                             {
-                                ApiDisplayInfo.monitors.info = String.Format("{0}级硫化氢报警，启动{1}级除异味作业！", strLevel, strLevel);
+                                ApiDisplayInfo.monitors.ppmH2SInfo = String.Format("{0}级预警，启动{1}级作业！", strLevel, strLevel);
+                            }
+                            else
+                            {
+                                ApiDisplayInfo.monitors.ppmH2SInfo = "";
                             }
                         }
                     }
@@ -391,12 +399,12 @@ namespace Web
                                 level = 3;
                                 strLevel = "三";
                             }
-                            if (nowCount > 150 && nowCount <= 250)
+                            if (nowCount > 115 && nowCount <= 150)
                             {
                                 level = 2;
                                 strLevel = "二";
                             }
-                            if (nowCount >= 250)
+                            if (nowCount >= 150)
                             {
                                 level = 1;
                                 strLevel = "一";
@@ -405,9 +413,13 @@ namespace Web
                             ApiDisplayInfo.monitors.pm25Level = level;
                             ApiDisplayInfo.monitors.alarm = level <= 3;
                             ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
-                            if (ApiDisplayInfo.monitors.alarm)
+                            if (level <= 3)
                             {
-                                ApiDisplayInfo.monitors.info = String.Format("{0}级PM2.5报警，启动{1}级除异味作业！", strLevel, strLevel);
+                                ApiDisplayInfo.monitors.pm25Info = String.Format("{0}级预警，启动{1}级作业！", strLevel, strLevel);
+                            }
+                            else
+                            {
+                                ApiDisplayInfo.monitors.pm25Info = "";
                             }
 
                         }
@@ -434,62 +446,72 @@ namespace Web
         /// <param name="e">The <see cref="PDCChangedEventArgs"/> instance containing the event data.</param>
         private void HikDevice_PDCChanged(object sender, PDCChangedEventArgs e)
         {
-            NLog.LogManager.GetLogger("default").Info("lastEnterNum：{0} EnterNum：{1}", lastEnterNum, e.EnterNum);
+            NLog.LogManager.GetLogger("default").Info("lastEnterNum：{0} EnterNum：{1} mode:{2}", lastEnterNum, e.EnterNum, e.Mode);
 
-            if (lastEnterNum == 0 || (int)e.EnterNum == 0)
+            if (e.Mode == 0)
             {
-                lastEnterNum = (int)e.EnterNum;
-            }
 
-            if (stopwatch.Elapsed.TotalSeconds >= 10 || lastEnterNum == 0 || !stopwatch.IsRunning)
-            {
-                nowCount = (int)(e.EnterNum - lastEnterNum);
+                if (lastEnterNum == 0 || (int)e.EnterNum == 0)
+                {
+                    lastEnterNum = (int)e.EnterNum;
+                }
 
-                NLog.LogManager.GetLogger("default").Info("nowCount：{0}", nowCount);
+                if (stopwatch.Elapsed.TotalSeconds >= 10 || lastEnterNum == 0 || !stopwatch.IsRunning)
+                {
+                    nowCount = (int)(e.EnterNum - lastEnterNum);
 
-                lastEnterNum = (int)e.EnterNum;
-                stopwatch.Restart();
-            }
+                    NLog.LogManager.GetLogger("default").Info("nowCount：{0}", nowCount);
 
-            int level = 5;
-            string strLevel = "五";
-            if (nowCount <= 11)
-            {
-                level = 5;
-                strLevel = "五";
-            }
-            if (nowCount > 11 && nowCount <= 17)
-            {
-                level = 4;
-                strLevel = "四";
-            }
-            if (nowCount > 17 && nowCount <= 25)
-            {
-                level = 3;
-                strLevel = "三";
-            }
-            if (nowCount > 25 && nowCount <= 32)
-            {
-                level = 2;
-                strLevel = "二";
-            }
-            if (nowCount >= 32)
-            {
-                level = 1;
-                strLevel = "一";
-            }
+                    lastEnterNum = (int)e.EnterNum;
+                    stopwatch.Restart();
+                }
 
-            ApiDisplayInfo.flowCount.flowRateLevel = level;
-            ApiDisplayInfo.flowCount.alarm = level <= 3;
-            ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
-            if (ApiDisplayInfo.flowCount.alarm)
-            {
-                ApiDisplayInfo.flowCount.info = String.Format("{0}级客流量报警，启动{1}级除异味作业！", strLevel, strLevel);
-            }
+                int level = 5;
+                string strLevel = "五";
+                if (nowCount <= 11)
+                {
+                    level = 5;
+                    strLevel = "五";
+                }
+                if (nowCount > 11 && nowCount <= 17)
+                {
+                    level = 4;
+                    strLevel = "四";
+                }
+                if (nowCount > 17 && nowCount <= 25)
+                {
+                    level = 3;
+                    strLevel = "三";
+                }
+                if (nowCount > 25 && nowCount <= 32)
+                {
+                    level = 2;
+                    strLevel = "二";
+                }
+                if (nowCount >= 32)
+                {
+                    level = 1;
+                    strLevel = "一";
+                }
 
-            ApiDisplayInfo.flowCount.flowRateByNow = nowCount;
-            ApiDisplayInfo.flowCount.flowRateByDay = (int)e.EnterNum;
-            ApiDisplayInfo.flowCount.flowRateByHour = ApiDisplayInfo.flowCount.flowRateByDay / (DateTime.Now.Hour + 1);
+                ApiDisplayInfo.flowCount.flowRateLevel = level;
+                ApiDisplayInfo.flowCount.alarm = false;
+                ApiDisplayInfo.flowCount.alarmtime = DateTime.Now.ToString();
+                if (level <= 3)
+                {
+                    ApiDisplayInfo.flowCount.info = String.Format("{0}级综合预警，启动{1}级综合作业！", strLevel, strLevel);
+                }
+
+                ApiDisplayInfo.flowCount.flowRateByNow = nowCount;
+                ApiDisplayInfo.flowCount.flowRateByDay = (int)e.EnterNum;
+            }
+            if (e.Mode == 1)
+            {
+                ApiDisplayInfo.flowCount.flowRateByHour = (int)e.EnterNum;
+                lastflowRateByHour = (int)e.EnterNum;
+            }
         }
+
+        private int lastflowRateByHour = 0;
     }
 }
