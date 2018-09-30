@@ -339,7 +339,7 @@ namespace Web
                                 strLevel = "一";
                             }
 
-                            ApiDisplayInfo.monitors.ppmH2S = level;
+                            ApiDisplayInfo.monitors.ppmH2SLevel = level;
                             ApiDisplayInfo.monitors.alarm = level <= 3;
                             ApiDisplayInfo.monitors.alarmtime = DateTime.Now.ToString();
                             if (level <= 3)
