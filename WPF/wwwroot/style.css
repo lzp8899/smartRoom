@@ -61,7 +61,7 @@ body {
     text-align: left;
     border-width: 0px;
     position: absolute;
-    left: 1310px;
+    left: 1660px;
     top: 11px;
     width: 183px;
     height: 22px;
@@ -149,6 +149,10 @@ body {
     text-align: left;
 }
 
+.yuan {
+    width: 20px;      height: 20px;      background-color:red;      border-radius: 50%;      -moz-border-radius: 50%;      -webkit-border-radius: 50%;
+}
+
 .flow {
     border-width: 0px;
     position: absolute;
@@ -169,30 +173,33 @@ body {
 }
 
 .flow1 {
-    width: 150px;
+    width: 120px;
 }
 
 .flow2 {
-    width: 150px;
+    width: 80px;
     padding-left: 8px;
+}
+
+.flow2_1 {
+    width: 168px;
+    padding-left: 8px;
+}
+
+.flow22 {
+    width: 80px;
+    padding-left: 8px;
+    height: 20px;
+}
+
+.flow22 .icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
 }
 
 .flow3 {
     width: 84px;
-}
-
-.flow4 {
-    width: 150px;
-}
-
-.flow5 {
-    margin-left: 12px;
-    width: 150px;
-}
-
-.flow6 {
-    /* margin-left: 19px; */
-    width: 80px;
 }
 
 .info_msg_title {

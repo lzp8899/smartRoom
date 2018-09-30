@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./style_mobile.css" rel="stylesheet">
+    <script src="./jquery-1.11.0.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid a">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-xs-12 col-sm-12 text-center">
+                <img src="./images/u28.png" style="width: 255px; height: 27px;" class="img-rounded">
+            </div>
+        </div>
+        <div class="row" style="height: 128px;">
+            <div class="col-xs-12 col-sm-12 text-center">
+                <img id='title_icon1' src="./images/u15.png" style="width: 128px; height: 128px;" class="img-rounded">
+                <img id='title_icon2' src="./images/u16.png" style="width: 128px; height: 128px; z-index: 1; transform: rotateY(90deg)" class="img-rounded">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-xs-12 col-sm-12">
+                <div id="myCarousel" class="carousel slide" style="margin: 5px;">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="./images/u19.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u20.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u21.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u22.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u23.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u24.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u25.jpg" />
+                        </div>
+                        <div class="item">
+                            <img src="./images/u26.jpg" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row" id="footer">
+            <div class="col-xs-12 col-sm-12 text-center" id="paper">
+                <p>领取厕纸</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var window_width =  $(window).width()
+    var window_height =  $(window).height()
+    $('.container-fluid').css('height', window_height)
+    $('#title_icon1, #title_icon2').css('position', 'absolute').css('left', (+window_width - 128)/2 + 20)
+    $("#myCarousel").css('height', $("#scroll_div").css('width'))
+    $("#myCarousel img").css('height', window_width)
+
+    setInterval(function() {
+        changeTitleIcon()
+    }, 2000)
+
+    function iconRotateY(icon) {
+        var angle = 9
+        var int = setInterval(function() {
+            if(angle >= 90) {
+                angle = 90
+                clearInterval(int)
+            }
+
+            icon.css('transform', 'rotateY('+angle+'deg)')
+            angle += 9
+        }, 10)
+    }
+
+    function changeTitleIcon() {
+        var iconList = [$('#title_icon1'), $('#title_icon2')]
+
+        for(var i = 0, l = iconList.length; i < l; i++) {
+            if(iconList[i].css('z-index') > 0) {
+                iconList[i].css('transform', 'rotateY(0deg)').css('z-index', 0)
+                i++
+                (i == l ? i = 0 : '')
+                iconList[i].css('z-index', 1)
+                iconRotateY(iconList[i])
+                break
+            }
+        }
+        
+    }
+
+    $('#myCarousel').carousel({
+        interval: 2000
+    })
+
+    $("#paper").click(function() {
+        alert('想干啥')
+    })
+</script>
+
+</html>

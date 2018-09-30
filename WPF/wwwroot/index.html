@@ -18,8 +18,8 @@
     </div>
     <div class="title" id="title">
         <img src="images/u9.png">
-        <p id="msg"><span>XXX信息科技有限公司智慧厕所云平台</span></p>
-        <p id="date"><span>{{dateTime}}</span></p>
+        <p id="msg"><span>中策汇川信息技术有限公司</span></p>
+        <p id="date"><span>{{dateTime.time}}</span></p>
     </div>
     <div class="info" id="wcInfo">
         <img class="railway" src="images/u12.png">
@@ -30,7 +30,7 @@
             <img class="line_img" src="images/u14.png">
         </div>
         <div class="wc_name">
-            <p><span>售六男厕所</span></p>
+            <p><span>A3男厕所</span></p>
         </div>
 
         <div class="line" style="top: 148px;">
@@ -39,18 +39,18 @@
 
         <div class="flow" style="top:143px;">
             <div class="flow1">
-                <p><span>动态人流量：</span></p>
+                <p><span>动态客流量：</span></p>
             </div>
             <div class="flow2">
                 <p><span>{{wcinfo.flowCount.flowRateByNow}}</span></p>
             </div>
-            <div class="flow3">
-                <p><span>人/秒（sec）</span></p>
+            <div class="flow22">
+                <p><span><alarm-wc-icon :level='wcinfo.flowCount.flowRateLevel'></alarm-wc-icon></span></p>
             </div>
-            <template v-if="wcinfo.flowCount.alarm">
-                <alarm-wc></alarm-wc>
-            </template>
-            
+            <div class="flow3">
+                <p><span>客/实时秒（sec）</span></p>
+            </div>
+            <alarm-wc :level='wcinfo.flowCount.flowRateLevel'></alarm-wc>
         </div>
 
         <!-- <div class="flow" style="top:171px;">
@@ -68,25 +68,25 @@
 
         <div class="flow" style="top:171px;">
             <div class="flow1">
-                <p><span>小时人流量：</span></p>
+                <p><span>小时客流量：</span></p>
             </div>
-            <div class="flow2">
+            <div class="flow2_1">
                 <p><span>{{wcinfo.flowCount.flowRateByHour}}</span></p>
             </div>
             <div class="flow3">
-                <p><span>人/小时(H)</span></p>
+                <p><span>客/实时小时(H)</span></p>
             </div>
         </div>
 
         <div class="flow" style="top:196px;">
             <div class="flow1">
-                <p><span>今日人流量：</span></p>
+                <p><span>今日客流量：</span></p>
             </div>
-            <div class="flow2">
+            <div class="flow2_1">
                 <p><span>{{wcinfo.flowCount.flowRateByDay}}</span></p>
             </div>
             <div class="flow3">
-                <p><span>人/日(D)</span></p>
+                <p><span>客/实时日(D)</span></p>
             </div>
         </div>
 

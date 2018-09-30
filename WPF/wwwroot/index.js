@@ -3,26 +3,9 @@ var getjsonUrl = '/api/Service/allInfos'
 
 var _data = {}
 
-var default_data = {"flowCount":{"flowRateByNow":50,"flowRateByHour":3000,"flowRateByDay":600,"alarm":false,"alarmtime":"2018-09-16 22:22:02","info":"人eqwrewrqr流数据超标，马上启动dfafsaf喷香作业和除异味作业！"},"monitors":{"ppmNH3":12,"ppmH2S":0,"ppmVOC":5,"ppmC8H7N":8,"temperature":130,"humidity":280,"pm25":225,"alarm":true,"alarmtime":"2018-09-16 20:23:03","info":"异味数据超标，马上启动喷香作业和dddd除异味作业！"},"fans":[{"name":"1号","working":false,"workMinutes":220,"workHourCount":5000},{"name":"2号","working":true,"workMinutes":220,"workHourCount":2400},{"name":"3号","working":true,"workMinutes":220,"workHourCount":1000}],"pxj":[{"name":"1号","working":true,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:24:02","info":"1号喷香机余量不足，555请及时更换！"},{"name":"2号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"2号喷香机余量不足，请及时更换！"},{"name":"3号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"3号喷香机余量不足，请及时更换！"},{"name":"4号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"4号喷香机余量不足，请及时更换！"},{"name":"5号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 22:53:02","info":"5号喷香机余量不足，请及时更换！"},{"name":"6号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:16:02","info":"6号喷香机余量不足，请及时更换！"},{"name":"7号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"7号喷香机余量不足，请及时更换！"},{"name":"8号","working":false,"total":3000,"ramainder":500,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"8号喷香机余量不足，请及时更换！"},{"name":"9号","working":true,"total":3000,"ramainder":500,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"9号喷香机余量不足，请及时更换！"},{"name":"10号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"10号喷香机余量不足，请及时更换！"},{"name":"11号","working":false,"total":3000,"ramainder":500,"alarm":false,"alarmtime":"2018-09-16 22:52:02","info":"11号喷香机余量ewqrW不足，请及时更换！"},{"name":"12号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 22:51:02","info":"12号喷香机余量不足，请及时更换！"},{"name":"13号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"13号喷香机余量不足，请及时更换！"},{"name":"14号","working":true,"total":3000,"ramainder":500,"alarm":false,"alarmtime":"2018-09-16 20:25:02","info":"14号喷香机余量不足，请及时更换！"},{"name":"15号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"15号喷香机余量不足，请及时更换！"},{"name":"16号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"16号喷香机余量不足，请及时更换！"},{"name":"17号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"17号喷香机余量不足，请及时更换！"},{"name":"18号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"18号喷香机余量不足，请及时更换！"},{"name":"19号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"19号喷香机余量不足，请及时更换！"},{"name":"20号","working":true,"total":3000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"20号喷香机余量不足，请及时更换！"}],"smczj":[{"name":"1号","working":true,"total":1000,"ramainder":1000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"1号物联网综合服务器卷纸剩余量不足，请及时更换！"},{"name":"2号","working":false,"total":1000,"ramainder":0,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"2号物联网综合服tret务器卷纸剩余量不足，请及时更换！"}],"xsysb":[{"name":"1号","working":true,"total":1000,"ramainder":100,"alarm":true,"alarmtime":"2018-09-16 20:26:02","info":"1号洗手液设ddddd备余量不足，请及时更换！"}],"cszsb":[{"name":"1号","working":false,"total":1000,"ramainder":500,"alarm":true,"alarmtime":"2018-09-16 20:15:02","info":"1号擦手纸设备余量不足，请及时更换!1号擦手纸设备余量不足，请及时更换!"}]}
+var default_data = {"flowCount":{"id":"100000150100","flowRateByNow":0,"flowRateLevel":5,"flowRateByHour":0,"flowRateByDay":0,"alarm":false,"alarmtime":"2018-09-16 22:22:02","info":"一级综合预警，启动一级综合作业！"},"monitors":{"id":"100000105100","name":"气味探测器","ppmNH3":12.0,"ppmNH3Level":5,"ppmNH3Info":"一级预警，启动一级作业！","ppmH2S":21.0,"ppmH2SLevel":5,"ppmH2SInfo":"一级预警，启动一级作业！","ppmVOC":15.0,"ppmC8H7N":18.0,"temperature":28.0,"humidity":90.0,"pm25":40.0,"pm25Level":5,"pm25Info":"一级预警，启动一级作业！","alarm":false,"alarmtime":"2018-09-16 20:23:03","info":"人流数据超标，马上启动喷香作业和除异味作业！"},"fans":[{"id":"100000104100","name":"1号","working":false,"workMinutes":0,"workHourCount":0,"workMinutesCount":0},{"id":"100000104101","name":"2号","working":false,"workMinutes":0,"workHourCount":0,"workMinutesCount":0},{"id":"100000104102","name":"3号","working":false,"workMinutes":0,"workHourCount":0,"workMinutesCount":0}],"pxj":[{"id":"100000100100","name":"1号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:24:02","info":"1号喷香机余量不足，请及时更换！"},{"id":"100000100101","name":"2号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"2号喷香机余量不足，请及时更换！"},{"id":"100000100102","name":"3号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"3号喷香机余量不足，请及时更换！"},{"id":"100000100103","name":"4号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"4号喷香机余量不足，请及时更换！"},{"id":"100000100104","name":"5号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 22:53:02","info":"5号喷香机余量不足，请及时更换！"},{"id":"100000100105","name":"6号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:16:02","info":"6号喷香机余量不足，请及时更换！"},{"id":"100000100106","name":"7号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"7号喷香机余量不足，请及时更换！"},{"id":"100000100107","name":"8号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"8号喷香机余量不足，请及时更换！"},{"id":"100000100108","name":"9号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"9号喷香机余量不足，请及时更换！"},{"id":"100000100109","name":"10号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"10号喷香机余量不足，请及时更换！"},{"id":"100000100110","name":"11号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 22:52:02","info":"11号喷香机余量不足，请及时更换！"},{"id":"100000100111","name":"12号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 22:51:02","info":"12号喷香机余量不足，请及时更换！"},{"id":"100000100112","name":"13号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"13号喷香机余量不足，请及时更换！"},{"id":"100000100113","name":"14号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:25:02","info":"14号喷香机余量不足，请及时更换！"},{"id":"100000100114","name":"15号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"15号喷香机余量不足，请及时更换！"},{"id":"100000100115","name":"16号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"16号喷香机余量不足，请及时更换！"},{"id":"100000100116","name":"17号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"17号喷香机余量不足，请及时更换！"},{"id":"100000100117","name":"18号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"18号喷香机余量不足，请及时更换！"},{"id":"100000100118","name":"19号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"19号喷香机余量不足，请及时更换！"},{"id":"100000100119","name":"20号","working":false,"total":3000,"ramainder":3000,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"20号喷香机余量不足，请及时更换！"}],"smczj":[{"id":"100000103100","name":"1号","working":false,"total":30,"ramainder":30,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"1号物联网综合服务器卷纸剩余量不足，请及时更换！"}],"xsysb":[{"id":"100000101100","name":"1号","working":false,"total":1000,"ramainder":100,"alarm":false,"alarmtime":"2018-09-16 20:26:02","info":"1号洗手液设备余量不足，请及时更换！"}],"cszsb":[{"id":"100000102100","name":"1号","working":false,"total":30,"ramainder":30,"alarm":false,"alarmtime":"2018-09-16 20:15:02","info":"1号擦手纸设备余量不足，请及时更换!"}]}
 
 sortOutDate(default_data)
-
-var date = new Date()
-
-var weekday = new Array(7)
-weekday[0] = "星期天"
-weekday[1] = "星期一"
-weekday[2] = "星期二"
-weekday[3] = "星期三"
-weekday[4] = "星期四"
-weekday[5] = "星期五"
-weekday[6] = "星期六"
-
-var dateTime = "";
-dateTime += date.getFullYear() + "年"
-dateTime += (date.getMonth() + 1) + "月"
-dateTime += date.getDate() + "日"
-dateTime += " " + weekday[date.getDay()]
 
 function sortOutDate(dataJSON) {
 
@@ -95,7 +78,7 @@ function getTime(parse) {
 
 function malfunctionMsg(msg_data) {
     var malfunction_msg = new Array()
-    if (msg_data.flowCount.alarm && msg_data.flowCount.info != "") {
+    if (+msg_data.flowCount.flowRateLevel <= 3 && msg_data.flowCount.info != "") {
         var a = {}
         a['info'] = msg_data.flowCount.info
         a['dateTime'] = Date.parse(new Date(msg_data.flowCount.alarmtime.replace(/-/g, "/")))
@@ -103,16 +86,34 @@ function malfunctionMsg(msg_data) {
         malfunction_msg.push(a)
     }
 
-    if (msg_data.flowCount.alarm && msg_data.monitors.info != "") {
-        var a = {}
-        a['info'] = msg_data.monitors.info
-        a['dateTime'] = Date.parse(new Date(msg_data.monitors.alarmtime.replace(/-/g, "/")))
-        a['time'] = getTime(a['dateTime'])
-        malfunction_msg.push(a)
+    if(top.location.href.indexOf("index1.html") > 0) {
+        if (+msg_data.monitors.ppmNH3Level <= 3 && msg_data.monitors.ppmNH3Info != "") {
+            var a = {}
+            a['info'] = msg_data.monitors.ppmNH3Info
+            a['dateTime'] = Date.parse(new Date(msg_data.monitors.alarmtime.replace(/-/g, "/")))
+            a['time'] = getTime(a['dateTime'])
+            malfunction_msg.push(a)
+        }
+    
+        if (+msg_data.monitors.ppmH2SLevel <= 3 && msg_data.monitors.ppmH2SInfo != "") {
+            var a = {}
+            a['info'] = msg_data.monitors.ppmH2SInfo
+            a['dateTime'] = Date.parse(new Date(msg_data.monitors.alarmtime.replace(/-/g, "/")))
+            a['time'] = getTime(a['dateTime'])
+            malfunction_msg.push(a)
+        }
+    
+        if (+msg_data.monitors.pm25Level <= 3 && msg_data.monitors.pm25Info != "") {
+            var a = {}
+            a['info'] = msg_data.monitors.pm25Info
+            a['dateTime'] = Date.parse(new Date(msg_data.monitors.alarmtime.replace(/-/g, "/")))
+            a['time'] = getTime(a['dateTime'])
+            malfunction_msg.push(a)
+        }
     }
 
     for (var i = 0, l = msg_data.pxj.length; i < l; i++) {
-        if (msg_data.pxj[i].info != "") {
+        if (msg_data.pxj[i].alarm && msg_data.pxj[i].info != "") {
             var a = {}
             a['info'] = msg_data.pxj[i].info
             a['dateTime'] = Date.parse(new Date(msg_data.pxj[i].alarmtime.replace(/-/g, "/")))
@@ -151,10 +152,38 @@ function getJSON() {
     });
 }
 
+function getNowTime() {
+    var _dateTime = ""
+    var date = new Date()
+
+    var weekday = new Array(7)
+    weekday[0] = "星期天"
+    weekday[1] = "星期一"
+    weekday[2] = "星期二"
+    weekday[3] = "星期三"
+    weekday[4] = "星期四"
+    weekday[5] = "星期五"
+    weekday[6] = "星期六"
+
+    _dateTime += date.getFullYear() + "年"
+    _dateTime += (date.getMonth() + 1) + "月"
+    _dateTime += date.getDate() + "日"
+
+    _dateTime += " " + ((+date.getHours()) > 0 ? date.getHours() : "0"+date.getHours()) + ":" + ((+date.getMinutes()) > 0 ? date.getMinutes() : "0"+date.getMinutes()) + ":" + ((+date.getSeconds()) > 0 ? date.getSeconds() : "0"+date.getSeconds())
+
+    _dateTime += " " + weekday[date.getDay()]
+    return _dateTime
+}
+
+var _dateTime = {time: getNowTime()}
+setInterval(function() {
+    _dateTime['time'] = getNowTime()
+}, 1000)
+
 new Vue({
     el: '#title',
     data: {
-        dateTime: dateTime
+        dateTime: _dateTime
     }
 })
 

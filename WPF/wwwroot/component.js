@@ -1,18 +1,145 @@
 Vue.component('alarm-wc', {
-    template: '<img :src="img_src" style="margin-top: 10px; margin-left:5px; ">',
+    props: {
+        level: Number
+    },
+    template: '<div style="margin-top: 15px; margin-left:30px;" :style="bgcolor" class="yuan">',
     data: function () {
         return {
-            img_src: "images/u34.png"
+            bgcolor: 'background-color: #B3EE3A',
+            int: "",
+            i: 0
+        }
+    },
+    computed: {
+        levelChange: function () {
+            return this.level
+        }
+    },
+    watch: {
+        levelChange: function (val, oldVal) {
+            if (val != oldVal) {
+                this.init();
+            }
         }
     },
     mounted: function () {
-        var self = this
-        var i = 0
-        var imgList = ["images/u34.png", "images/u35.png"]
-        setInterval(function () {
-            (i == 1 ? i = 0 : i++)
-            self.img_src = imgList[i]
-        }, 200)
+        clearTimeout(this.int)
+        this.init()
+    },
+    methods: {
+        init: function () {
+            var self = this
+
+            if (isNaN(+self.level))
+                self.level = 5
+
+            var color5 = 'background-color: #B3EE3A'
+            var color4 = 'background-color: yellow'
+            var color3 = 'background-color: #FF5809'
+            var color2 = 'background-color: red'
+            var color1 = 'background-color: #CD2626'
+
+            var color = eval('color' + self.level)
+            self.bgcolor = color
+        }
+    }
+})
+// 绿  黄 橙 红 深红
+Vue.component('alarm-wc-icon', {
+    props: {
+        level: Number
+    },
+    template: '<div style="height: 10px;width: 80px; padding-top: 5px;"><div class="icon" :style="color5" /><div class="icon" :style="color4" /><div class="icon" :style="color3" /><div class="icon" :style="color2" /><div class="icon" :style="color1" /></div>',
+    data: function () {
+        return {
+            color5: 'background-color: #B3EE3A',
+            color4: 'background-color: yellow',
+            color3: 'background-color: #FF5809',
+            color2: 'background-color: red',
+            color1: 'background-color: #CD2626',
+            int: "",
+            i: 0
+        }
+    },
+    computed: {
+        levelChange: function () {
+            return this.level
+        }
+    },
+    watch: {
+        levelChange: function (val, oldVal) {
+            if (val != oldVal) {
+                this.init();
+            }
+        }
+    },
+    mounted: function () {
+        clearTimeout(this.int)
+        this.init()
+    },
+    methods: {
+        init: function () {
+            var self = this
+
+            if (isNaN(+self.level))
+                self.level = 5
+
+            var color5 = 'background-color: #B3EE3A'
+            var color4 = 'background-color: yellow'
+            var color3 = 'background-color: #FF5809'
+            var color2 = 'background-color: red'
+            var color1 = 'background-color: #CD2626'
+
+            var color = eval('color' + self.level)
+
+            var colorList = [color, "background-color: rgba(48, 48, 48, 1)"]
+            self.int = setTimeout(function () {
+                (self.i == 1 ? self.i = 0 : self.i++)
+                switch (+self.level) {
+                    case 1:
+                        self.color1 = colorList[self.i]
+                        // self.color1 = color1
+                        self.color2 = color2
+                        self.color3 = color3
+                        self.color4 = color4
+                        self.color5 = color5
+                        break
+                    case 2:
+                        self.color2 = colorList[self.i]
+                        self.color1 = color1
+                        // self.color2 = color2
+                        self.color3 = color3
+                        self.color4 = color4
+                        self.color5 = color5
+                        break
+                    case 3:
+                        self.color3 = colorList[self.i]
+                        self.color1 = color1
+                        self.color2 = color2
+                        // self.color3 = color3
+                        self.color4 = color4
+                        self.color5 = color5
+                        break
+                    case 4:
+                        self.color4 = colorList[self.i]
+                        self.color1 = color1
+                        self.color2 = color2
+                        self.color3 = color3
+                        // self.color4 = color4
+                        self.color5 = color5
+                        break
+                    case 5:
+                        self.color5 = colorList[self.i]
+                        self.color1 = color1
+                        self.color2 = color2
+                        self.color3 = color3
+                        self.color4 = color4
+                        // self.color5 = color5
+                        break
+                }
+                self.init()
+            }, 1000)
+        }
     }
 })
 

@@ -1,0 +1,34 @@
+.a {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    background: -webkit-linear-gradient(270deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(0, 0, 255, 1) 100%,
+        rgba(0, 0, 255, 1) 100%);
+        font-family: '微软雅黑 Bold', '微软雅黑';
+}
+
+#myCarousel img {
+    width: 100%;
+    height: 100%;
+}
+
+#footer {
+    position: fixed;
+    margin-left: 0px;
+    height: 40px;
+    width: 97%;
+    margin-bottom: 5px;
+    margin-left: 6px;
+    margin-right: 6px;
+    bottom: 0;
+    background-color: rgba(153, 102, 153, 1);
+    color: aliceblue;
+}
+
+#footer div {
+    top: 12px;
+}
