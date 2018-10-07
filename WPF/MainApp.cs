@@ -1,16 +1,17 @@
 ﻿// ***********************************************************************
-// Assembly         : WinHost
-// Author           : lzp
-// Created          : 09-16-2018
+// Assembly : WinHost
+// Author : lzp
+// Created: 09-16-2018
 //
 // Last Modified By : lzp
 // Last Modified On : 09-22-2018
 // ***********************************************************************
 // <copyright file="MainApp.cs" company="Microsoft">
-//     Copyright © Microsoft 2018
+// Copyright © Microsoft 2018
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -174,15 +175,15 @@ namespace Web
             double baseCount = GetNH3BaseCount();
             double scale = 0;
             double count = 0;
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute>=0 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute<=10 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 0 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 10 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(282, 305);
                 count = (float)(count5TO6 / 10.00f);
-                count = Math.Round(count,1);
+                count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 10 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 20 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 10 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 20 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(306, 324);
@@ -190,7 +191,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 20 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 30 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 20 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 30 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(326, 347);
@@ -198,7 +199,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 30 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 40 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 30 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 40 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(349, 365);
@@ -206,7 +207,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 40 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 44 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 40 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 44 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(368, 385);
@@ -222,7 +223,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 50 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 54 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 5 && DateTime.Now.Minute >= 50 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 5 && DateTime.Now.Minute <= 54 && DateTime.Now.Second <= 59)
             {
                 Random r1 = new Random((int)DateTime.Now.Ticks);
                 int count5TO6 = r1.Next(426, 448);
@@ -341,207 +342,207 @@ namespace Web
             }
             //if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 18)
             //{
-            //    //scale = 1.421f;
-            //    if (nowCount <= 2)
-            //    {
-            //        Random r2down = new Random((int)DateTime.Now.Ticks);
-            //        int count2down = r2down.Next(106, 114);
-            //        scale = (float)(count2down / 10.00f);
-            //        count = Math.Round((2 * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 3)
-            //    {
-            //        Random r3m = new Random((int)DateTime.Now.Ticks);
-            //        int count3m = r3m.Next(760, 796);
-            //        scale = (float)(count3m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 4)
-            //    {
-            //        Random r4m = new Random((int)DateTime.Now.Ticks);
-            //        int count4m = r4m.Next(554, 595);
-            //        scale = (float)(count4m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 5)
-            //    {
-            //        Random r5m = new Random((int)DateTime.Now.Ticks);
-            //        int count5m = r5m.Next(485, 535);
-            //        scale = (float)(count5m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
+            ////scale = 1.421f;
+            //if (nowCount <= 2)
+            //{
+            //Random r2down = new Random((int)DateTime.Now.Ticks);
+            //int count2down = r2down.Next(106, 114);
+            //scale = (float)(count2down / 10.00f);
+            //count = Math.Round((2 * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 3)
+            //{
+            //Random r3m = new Random((int)DateTime.Now.Ticks);
+            //int count3m = r3m.Next(760, 796);
+            //scale = (float)(count3m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 4)
+            //{
+            //Random r4m = new Random((int)DateTime.Now.Ticks);
+            //int count4m = r4m.Next(554, 595);
+            //scale = (float)(count4m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 5)
+            //{
+            //Random r5m = new Random((int)DateTime.Now.Ticks);
+            //int count5m = r5m.Next(485, 535);
+            //scale = (float)(count5m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
 
-            //    if (nowCount == 6)
-            //    {
-            //        Random r6m = new Random((int)DateTime.Now.Ticks);
-            //        int count6m = r6m.Next(390, 444);
-            //        scale = (float)(count6m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 7)
-            //    {
-            //        Random r7m = new Random((int)DateTime.Now.Ticks);
-            //        int countm = r7m.Next(345, 392);
-            //        scale = (float)(countm / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 8)
-            //    {
-            //        Random r8m = new Random((int)DateTime.Now.Ticks);
-            //        int count8m = r8m.Next(314, 345);
-            //        scale = (float)(count8m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 9)
-            //    {
-            //        Random r9m = new Random((int)DateTime.Now.Ticks);
-            //        int count9m = r9m.Next(284, 314);
-            //        scale = (float)(count9m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 10)
-            //    {
-            //        Random r10m = new Random((int)DateTime.Now.Ticks);
-            //        int count10m = r10m.Next(245, 294);
-            //        scale = (float)(count10m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 11)
-            //    {
-            //        Random r11m = new Random((int)DateTime.Now.Ticks);
-            //        int count11m = r11m.Next(234, 284);
-            //        scale = (float)(count11m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 12)
-            //    {
-            //        Random r12m = new Random((int)DateTime.Now.Ticks);
-            //        int count12m = r12m.Next(214, 264);
-            //        scale = (float)(count12m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount > 12)
-            //    {
-            //        Random r12up = new Random((int)DateTime.Now.Ticks);
-            //        int count12up = r12up.Next(631, 667);
-            //        count = (float)(count12up / 10.00f);
-            //        count = Math.Round(count, 1);
-            //        return count;
-            //    }
+            //if (nowCount == 6)
+            //{
+            //Random r6m = new Random((int)DateTime.Now.Ticks);
+            //int count6m = r6m.Next(390, 444);
+            //scale = (float)(count6m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 7)
+            //{
+            //Random r7m = new Random((int)DateTime.Now.Ticks);
+            //int countm = r7m.Next(345, 392);
+            //scale = (float)(countm / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 8)
+            //{
+            //Random r8m = new Random((int)DateTime.Now.Ticks);
+            //int count8m = r8m.Next(314, 345);
+            //scale = (float)(count8m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 9)
+            //{
+            //Random r9m = new Random((int)DateTime.Now.Ticks);
+            //int count9m = r9m.Next(284, 314);
+            //scale = (float)(count9m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 10)
+            //{
+            //Random r10m = new Random((int)DateTime.Now.Ticks);
+            //int count10m = r10m.Next(245, 294);
+            //scale = (float)(count10m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 11)
+            //{
+            //Random r11m = new Random((int)DateTime.Now.Ticks);
+            //int count11m = r11m.Next(234, 284);
+            //scale = (float)(count11m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 12)
+            //{
+            //Random r12m = new Random((int)DateTime.Now.Ticks);
+            //int count12m = r12m.Next(214, 264);
+            //scale = (float)(count12m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount > 12)
+            //{
+            //Random r12up = new Random((int)DateTime.Now.Ticks);
+            //int count12up = r12up.Next(631, 667);
+            //count = (float)(count12up / 10.00f);
+            //count = Math.Round(count, 1);
+            //return count;
+            //}
             //}
 
             //跳高
             //if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 18)
             //{
-            //    //scale = 1.421f;
-            //    if (nowCount <= 2)
-            //    {
-            //        Random r2down = new Random((int)DateTime.Now.Ticks);
-            //        int count2down = r2down.Next(158, 163);
-            //        scale = (float)(count2down / 10.00f);
-            //        count = Math.Round((2 * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 3)
-            //    {
-            //        Random r3m = new Random((int)DateTime.Now.Ticks);
-            //        int count3m = r3m.Next(989, 999);
-            //        scale = (float)(count3m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 4)
-            //    {
-            //        Random r4m = new Random((int)DateTime.Now.Ticks);
-            //        int count4m = r4m.Next(815, 823);
-            //        scale = (float)(count4m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 5)
-            //    {
-            //        Random r5m = new Random((int)DateTime.Now.Ticks);
-            //        int count5m = r5m.Next(595, 655);
-            //        scale = (float)(count5m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
+            ////scale = 1.421f;
+            //if (nowCount <= 2)
+            //{
+            //Random r2down = new Random((int)DateTime.Now.Ticks);
+            //int count2down = r2down.Next(158, 163);
+            //scale = (float)(count2down / 10.00f);
+            //count = Math.Round((2 * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 3)
+            //{
+            //Random r3m = new Random((int)DateTime.Now.Ticks);
+            //int count3m = r3m.Next(989, 999);
+            //scale = (float)(count3m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 4)
+            //{
+            //Random r4m = new Random((int)DateTime.Now.Ticks);
+            //int count4m = r4m.Next(815, 823);
+            //scale = (float)(count4m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 5)
+            //{
+            //Random r5m = new Random((int)DateTime.Now.Ticks);
+            //int count5m = r5m.Next(595, 655);
+            //scale = (float)(count5m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
 
-            //    if (nowCount == 6)
-            //    {
-            //        Random r6m = new Random((int)DateTime.Now.Ticks);
-            //        int count6m = r6m.Next(490, 554);
-            //        scale = (float)(count6m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 7)
-            //    {
-            //        Random r7m = new Random((int)DateTime.Now.Ticks);
-            //        int countm = r7m.Next(445, 492);
-            //        scale = (float)(countm / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 8)
-            //    {
-            //        Random r8m = new Random((int)DateTime.Now.Ticks);
-            //        int count8m = r8m.Next(364, 395);
-            //        scale = (float)(count8m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 9)
-            //    {
-            //        Random r9m = new Random((int)DateTime.Now.Ticks);
-            //        int count9m = r9m.Next(344, 374);
-            //        scale = (float)(count9m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 10)
-            //    {
-            //        Random r10m = new Random((int)DateTime.Now.Ticks);
-            //        int count10m = r10m.Next(315, 340);
-            //        scale = (float)(count10m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 11)
-            //    {
-            //        Random r11m = new Random((int)DateTime.Now.Ticks);
-            //        int count11m = r11m.Next(284, 324);
-            //        scale = (float)(count11m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount == 12)
-            //    {
-            //        Random r12m = new Random((int)DateTime.Now.Ticks);
-            //        int count12m = r12m.Next(264, 304);
-            //        scale = (float)(count12m / 100.00f);
-            //        count = Math.Round((nowCount * scale) + baseCount, 1);
-            //        return count;
-            //    }
-            //    if (nowCount > 12)
-            //    {
-            //        Random r12up = new Random((int)DateTime.Now.Ticks);
-            //        int count12up = r12up.Next(631, 667);
-            //        count = (float)(count12up / 10.00f);
-            //        count = Math.Round(count, 1);
-            //        return count;
-            //    }
+            //if (nowCount == 6)
+            //{
+            //Random r6m = new Random((int)DateTime.Now.Ticks);
+            //int count6m = r6m.Next(490, 554);
+            //scale = (float)(count6m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 7)
+            //{
+            //Random r7m = new Random((int)DateTime.Now.Ticks);
+            //int countm = r7m.Next(445, 492);
+            //scale = (float)(countm / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 8)
+            //{
+            //Random r8m = new Random((int)DateTime.Now.Ticks);
+            //int count8m = r8m.Next(364, 395);
+            //scale = (float)(count8m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 9)
+            //{
+            //Random r9m = new Random((int)DateTime.Now.Ticks);
+            //int count9m = r9m.Next(344, 374);
+            //scale = (float)(count9m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 10)
+            //{
+            //Random r10m = new Random((int)DateTime.Now.Ticks);
+            //int count10m = r10m.Next(315, 340);
+            //scale = (float)(count10m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 11)
+            //{
+            //Random r11m = new Random((int)DateTime.Now.Ticks);
+            //int count11m = r11m.Next(284, 324);
+            //scale = (float)(count11m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount == 12)
+            //{
+            //Random r12m = new Random((int)DateTime.Now.Ticks);
+            //int count12m = r12m.Next(264, 304);
+            //scale = (float)(count12m / 100.00f);
+            //count = Math.Round((nowCount * scale) + baseCount, 1);
+            //return count;
+            //}
+            //if (nowCount > 12)
+            //{
+            //Random r12up = new Random((int)DateTime.Now.Ticks);
+            //int count12up = r12up.Next(631, 667);
+            //count = (float)(count12up / 10.00f);
+            //count = Math.Round(count, 1);
+            //return count;
+            //}
             //}
 
             //跳低
@@ -653,7 +654,7 @@ namespace Web
                 Random r2 = new Random((int)DateTime.Now.Ticks);
                 int count18TO19 = r2.Next(475, 503);
                 count = (float)(count18TO19 / 10.00f);
-                count = Math.Round(count,1);
+                count = Math.Round(count, 1);
                 return count;
             }
             if (DateTime.Now.Hour >= 19 && DateTime.Now.Hour < 23)
@@ -757,7 +758,7 @@ namespace Web
                     return count;
                 }
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute>=0 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute<=5 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 0 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 5 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -766,7 +767,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 5 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 10 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 5 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 10 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -775,7 +776,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 10 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 15 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 10 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 15 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -784,7 +785,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 15 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 20 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 15 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 20 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -793,7 +794,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 20 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 25 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 20 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 25 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -802,7 +803,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 25 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 30 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 25 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 30 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -811,7 +812,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 30 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 35 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 30 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 35 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -820,7 +821,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 35 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 40 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 35 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 40 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -829,7 +830,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 40 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 45 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 40 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 45 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -838,7 +839,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 45 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 50 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 45 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 50 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -847,7 +848,7 @@ namespace Web
                 count = Math.Round(count, 1);
                 return count;
             }
-            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 50 && DateTime.Now.Second>=0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 59 && DateTime.Now.Second<=59)
+            if (DateTime.Now.Hour >= 23 && DateTime.Now.Minute >= 50 && DateTime.Now.Second >= 0 && DateTime.Now.Hour <= 23 && DateTime.Now.Minute <= 59 && DateTime.Now.Second <= 59)
             {
                 //scale = 1.421f;
                 Random r23to0 = new Random((int)DateTime.Now.Ticks);
@@ -864,107 +865,107 @@ namespace Web
         //backup method close washroom
         //public double CounterNH3ByTime(int t,int m,int s, int nh3)
         //{
-        //    double count = 0;
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= m && DateTime.Now.Second >= s && DateTime.Now.Hour <= t && DateTime.Now.Minute <= m+5 && DateTime.Now.Second <= s)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(nh3-2, nh3);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 5 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 10 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(462, 475);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 10 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 15 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(442, 458);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 15 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 20 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(412, 435);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 20 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 25 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(391, 405);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 25 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 30 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(373, 394);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 30 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 35 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(355, 373);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 35 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 40 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(334, 352);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 40 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 45 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(317, 333);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 45 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 50 && DateTime.Now.Second <= 0)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(293, 307);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 50 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 59 && DateTime.Now.Second <= 59)
-        //    {
-        //        //scale = 1.421f;
-        //        Random r23to0 = new Random((int)DateTime.Now.Ticks);
-        //        int count23TO0 = r23to0.Next(282, 297);
-        //        count = (float)(count23TO0 / 10.00f);
-        //        count = Math.Round(count, 1);
-        //        return count;
-        //    }
-        //    return count;
+        //double count = 0;
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= m && DateTime.Now.Second >= s && DateTime.Now.Hour <= t && DateTime.Now.Minute <= m+5 && DateTime.Now.Second <= s)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(nh3-2, nh3);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 5 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 10 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(462, 475);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 10 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 15 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(442, 458);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 15 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 20 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(412, 435);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 20 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 25 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(391, 405);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 25 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 30 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(373, 394);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 30 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 35 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(355, 373);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 35 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 40 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(334, 352);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 40 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 45 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(317, 333);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 45 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 50 && DateTime.Now.Second <= 0)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(293, 307);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //if (DateTime.Now.Hour >= t && DateTime.Now.Minute >= 50 && DateTime.Now.Second > 0 && DateTime.Now.Hour <= t && DateTime.Now.Minute <= 59 && DateTime.Now.Second <= 59)
+        //{
+        ////scale = 1.421f;
+        //Random r23to0 = new Random((int)DateTime.Now.Ticks);
+        //int count23TO0 = r23to0.Next(282, 297);
+        //count = (float)(count23TO0 / 10.00f);
+        //count = Math.Round(count, 1);
+        //return count;
+        //}
+        //return count;
         //}
 
         Stopwatch baseCountWatchH2S = new Stopwatch();
@@ -1035,7 +1036,7 @@ namespace Web
                     //bool result = autoResetEvent.WaitOne(60 * 1000);
                     //if (result)
                     //{
-                    //    break;
+                    //break;
                     //}
                     //SaveJson();
 
@@ -1043,9 +1044,12 @@ namespace Web
 
                     double nh3 = CounterNH3ByTime();
                     UpdateNH3(nh3);
+                    Addzhcs_air_count(AirType.H2S, nh3);
 
                     double h2s = CounterH2SByTime();
                     UpdateH2S(h2s);
+
+                    Addzhcs_air_count(AirType.H2S, h2s);
                 }
             });
         }
@@ -1323,6 +1327,7 @@ namespace Web
                         }
                     }
 
+                    //解析温湿度PM25数据
                     if (newMessageInfo.TypeID == "106")
                     {
                         string[] datas = newMessageInfo.parameter.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
@@ -1337,12 +1342,15 @@ namespace Web
                         if (result)
                         {
                             ApiDisplayInfo.monitors.temperature = temperature;
+
+                            Addzhcs_air_count(AirType.Temperature, temperature);
                         }
                         float humidity = 0;
                         result = float.TryParse(datas[1], out humidity);
                         if (result)
                         {
                             ApiDisplayInfo.monitors.humidity = humidity;
+                            Addzhcs_air_count(AirType.Humidity, humidity);
                         }
                         float pm25 = 0;
                         result = float.TryParse(datas[2], out pm25);
@@ -1350,6 +1358,8 @@ namespace Web
                         if (result)
                         {
                             ApiDisplayInfo.monitors.pm25 = pm25;
+                            Addzhcs_air_count(AirType.PM25, pm25);
+
                             int level = 5;
                             string strLevel = "五";
                             float nowCount = pm25;
@@ -1410,6 +1420,7 @@ namespace Web
 
         Stopwatch stopwatch = new Stopwatch();
         private int lastEnterNum = 0;
+        Stopwatch stopwatch1s = new Stopwatch();
 
         //当前人数
         int nowCount = 0;
@@ -1423,8 +1434,15 @@ namespace Web
         {
             NLog.LogManager.GetLogger("default").Info("lastEnterNum：{0} EnterNum：{1} mode:{2}", lastEnterNum, e.EnterNum, e.Mode);
 
+            //实时客流统计数据，每次变化都会上传
             if (e.Mode == 0)
             {
+                if (stopwatch1s.Elapsed.TotalSeconds >= 1 || !stopwatch1s.IsRunning)
+                {
+                    stopwatch1s.Restart();
+                    //记录客流数据
+                    Addzhcs_traveller_count((int)e.EnterNum, (int)e.LeaveNum);
+                }
                 //10 s 
                 if (lastEnterNum == 0 || (int)e.EnterNum == 0)
                 {
@@ -1495,6 +1513,7 @@ namespace Web
                 ApiDisplayInfo.flowCount.flowRateByNow = nowCount;
                 ApiDisplayInfo.flowCount.flowRateByDay = (int)e.EnterNum;
             }
+            //时段客流统计数据，在摄像机上配置，默认60分钟
             if (e.Mode == 1)
             {
                 ApiDisplayInfo.flowCount.flowRateByHour = (int)e.EnterNum;
@@ -1503,5 +1522,80 @@ namespace Web
         }
 
         private int lastflowRateByHour = 0;
+
+        #region 数据库读写
+
+        /// <summary>
+        /// 增加客流统计数据.
+        /// </summary>
+        /// <param name="in_count">The in count.</param>
+        /// <param name="out_count">The out count.</param>
+        private void Addzhcs_traveller_count(int in_count, int out_count)
+        {
+            return;
+
+            string sql = String.Format(@"INSERT INTO`zhcs_traveller_count`(`travellerid`,`in_count`,`out_count`,`cstype`,`csid`,`csmc`,`ctimestamp`,`COMMENTS`)VALUES (uuid(), ?in_count, ?out_count, ?cstype, 'csid', ?csmc, unix_timestamp(), '');");
+            MySqlParameter[] parameters =
+            {
+                new MySqlParameter("?in_count",in_count),
+                new MySqlParameter("?out_count",out_count),
+                new MySqlParameter("?cstype",1),//厕所类型,1表示男厕，2表示女厕,3表示残障
+                new MySqlParameter("?csmc","A3男厕所")
+                };
+            DataAccess.ExecuteSql(sql, parameters);
+        }
+
+        /// <summary>
+        /// 增加空气质量统计数据.
+        /// </summary>
+        /// <param name="ywtype">异味类别，1表示氨气，2表示硫化氢，3表示VOC，4表示温度，5表示湿度，6表示PM2.5.</param>
+        /// <param name="ywzs">异味指数.</param>
+        private void Addzhcs_air_count(AirType ywtype, double ywzs)
+        {
+            return;
+
+            string sql = String.Format(@"INSERT INTO`zhcs_air_count`(`airid`,`ywtype`,`ywzs`,`csid`,`csmc`,`ywtimestamp`,`COMMENTS`)VALUES (uuid(), ?ywtype, ?ywzs, 'csid', ?csmc, unix_timestamp(), '');");
+            MySqlParameter[] parameters =
+            {
+                new MySqlParameter("?ywtype",(int)ywtype),//异味类别，1表示氨气，2表示硫化氢，3表示VOC，4表示温度，5表示湿度，6表示PM2.5
+                new MySqlParameter("?ywzs",(decimal)ywzs),
+                new MySqlParameter("?csmc","A3男厕所")
+                };
+            DataAccess.ExecuteSql(sql, parameters);
+        }
+
+        #endregion
+
+    }
+
+    /// <summary>
+    /// Enum AirType
+    /// </summary>
+    public enum AirType
+    {
+        /// <summary>
+        /// The nh3
+        /// </summary>
+        NH3 = 1,
+        /// <summary>
+        /// The h2S
+        /// </summary>
+        H2S = 2,
+        /// <summary>
+        /// The voc
+        /// </summary>
+        VOC = 3,
+        /// <summary>
+        /// The temperature
+        /// </summary>
+        Temperature = 4,
+        /// <summary>
+        /// The humidity
+        /// </summary>
+        Humidity = 5,
+        /// <summary>
+        /// The pM25
+        /// </summary>
+        PM25 = 6
     }
 }
