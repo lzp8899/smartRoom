@@ -60,5 +60,16 @@ namespace Web
         {
             MainApp.Instance.SaveJson();
         }
+        
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainApp.Instance.Addzhcs_traveller_count(5,3);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainApp.Instance.Addzhcs_air_count(AirType.NH3, 33.4);
+        }
     }
 }

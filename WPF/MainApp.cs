@@ -1044,7 +1044,7 @@ namespace Web
 
                     double nh3 = CounterNH3ByTime();
                     UpdateNH3(nh3);
-                    Addzhcs_air_count(AirType.H2S, nh3);
+                    Addzhcs_air_count(AirType.NH3, nh3);
 
                     double h2s = CounterH2SByTime();
                     UpdateH2S(h2s);
@@ -1530,9 +1530,9 @@ namespace Web
         /// </summary>
         /// <param name="in_count">The in count.</param>
         /// <param name="out_count">The out count.</param>
-        private void Addzhcs_traveller_count(int in_count, int out_count)
+        public void Addzhcs_traveller_count(int in_count, int out_count)
         {
-            return;
+            //return;
 
             string sql = String.Format(@"INSERT INTO`zhcs_traveller_count`(`travellerid`,`in_count`,`out_count`,`cstype`,`csid`,`csmc`,`ctimestamp`,`COMMENTS`)VALUES (uuid(), ?in_count, ?out_count, ?cstype, 'csid', ?csmc, unix_timestamp(), '');");
             MySqlParameter[] parameters =
@@ -1550,9 +1550,9 @@ namespace Web
         /// </summary>
         /// <param name="ywtype">异味类别，1表示氨气，2表示硫化氢，3表示VOC，4表示温度，5表示湿度，6表示PM2.5.</param>
         /// <param name="ywzs">异味指数.</param>
-        private void Addzhcs_air_count(AirType ywtype, double ywzs)
+        public void Addzhcs_air_count(AirType ywtype, double ywzs)
         {
-            return;
+            //return;
 
             string sql = String.Format(@"INSERT INTO`zhcs_air_count`(`airid`,`ywtype`,`ywzs`,`csid`,`csmc`,`ywtimestamp`,`COMMENTS`)VALUES (uuid(), ?ywtype, ?ywzs, 'csid', ?csmc, unix_timestamp(), '');");
             MySqlParameter[] parameters =

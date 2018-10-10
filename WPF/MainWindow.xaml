@@ -12,6 +12,8 @@
         <Button x:Name="btnOpenPXJ" Content="打开喷香机" HorizontalAlignment="Left" Margin="268,56,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnOpenPXJ_Click"/>
         <Button x:Name="btnLoadJson" Content="加载JSON" HorizontalAlignment="Left" Margin="586,123,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnLoadJson_Click"/>
         <Button x:Name="btnSaveJson" Content="保存JSON" HorizontalAlignment="Left" Margin="586,56,0,0" VerticalAlignment="Top" Width="83" Height="38" Click="btnSaveJson_Click"/>
+        <Button Content="测试客流存储" HorizontalAlignment="Left" Margin="278,143,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="测试异味存储" HorizontalAlignment="Left" Margin="438,143,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
 
     </Grid>
 </Window>
