@@ -1424,6 +1424,8 @@ namespace Web
 
         //当前人数
         int nowCount = 0;
+        private int lastEnterNum1s = 0;
+        private int lastLeaveNum1s = 0;
 
         /// <summary>
         /// Handles the PDCChanged event of the HikDevice control.
@@ -1440,8 +1442,19 @@ namespace Web
                 if (stopwatch1s.Elapsed.TotalSeconds >= 1 || !stopwatch1s.IsRunning)
                 {
                     stopwatch1s.Restart();
+                    if (lastEnterNum1s == 0 || (int)e.EnterNum == 0)
+                    {
+                        lastEnterNum1s = (int)e.EnterNum;
+                    }
+                    if (lastLeaveNum1s == 0 || (int)e.LeaveNum == 0)
+                    {
+                        lastLeaveNum1s = (int)e.LeaveNum;
+                    }
                     //记录客流数据
-                    Addzhcs_traveller_count((int)e.EnterNum, (int)e.LeaveNum);
+                    Addzhcs_traveller_count((int)e.EnterNum - lastEnterNum1s, (int)e.LeaveNum - lastLeaveNum1s);
+
+                    lastEnterNum1s = (int)e.EnterNum;
+                    lastLeaveNum1s = (int)e.LeaveNum;
                 }
                 //10 s 
                 if (lastEnterNum == 0 || (int)e.EnterNum == 0)
