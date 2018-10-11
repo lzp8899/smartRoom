@@ -1532,7 +1532,7 @@ namespace Web
         /// <param name="out_count">The out count.</param>
         public void Addzhcs_traveller_count(int in_count, int out_count)
         {
-            return;
+            //return;
 
             string sql = String.Format(@"INSERT INTO`zhcs_traveller_count`(`travellerid`,`in_count`,`out_count`,`cstype`,`csid`,`csmc`,`ctimestamp`,`COMMENTS`)VALUES (uuid(), ?in_count, ?out_count, ?cstype, 'csid', ?csmc, unix_timestamp(), '');");
             MySqlParameter[] parameters =
@@ -1552,7 +1552,7 @@ namespace Web
         /// <param name="ywzs">异味指数.</param>
         public void Addzhcs_air_count(AirType ywtype, double ywzs)
         {
-            return;
+            //return;
 
             string sql = String.Format(@"INSERT INTO`zhcs_air_count`(`airid`,`ywtype`,`ywzs`,`csid`,`csmc`,`ywtimestamp`,`COMMENTS`)VALUES (uuid(), ?ywtype, ?ywzs, 'csid', ?csmc, unix_timestamp(), '');");
             MySqlParameter[] parameters =
