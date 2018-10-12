@@ -1450,8 +1450,10 @@ namespace Web
                     {
                         lastLeaveNum1s = (int)e.LeaveNum;
                     }
+                    NLog.LogManager.GetLogger("default").Info("lastEnterNum1s：{0} lastLeaveNum1s：{1} in_Num1:{2} out_Num1:{3}", lastEnterNum1s,  lastLeaveNum1s, (int)e.EnterNum - lastEnterNum1s, (int)e.LeaveNum - lastLeaveNum1s);
+
                     //记录客流数据
-                    Addzhcs_traveller_count((int)e.EnterNum - lastEnterNum1s, (int)e.LeaveNum - lastLeaveNum1s);
+                    Addzhcs_traveller_count((int)e.EnterNum - lastEnterNum1s, (int)e.LeaveNum - lastLeaveNum1s,(int)e.EnterNum,(int)e.LeaveNum);
 
                     lastEnterNum1s = (int)e.EnterNum;
                     lastLeaveNum1s = (int)e.LeaveNum;
@@ -1543,15 +1545,17 @@ namespace Web
         /// </summary>
         /// <param name="in_count">The in count.</param>
         /// <param name="out_count">The out count.</param>
-        public void Addzhcs_traveller_count(int in_count, int out_count)
+        public void Addzhcs_traveller_count(int in_count, int out_count,int current_in_count,int current_out_count)
         {
             //return;
 
-            string sql = String.Format(@"INSERT INTO`zhcs_traveller_count`(`travellerid`,`in_count`,`out_count`,`cstype`,`csid`,`csmc`,`ctimestamp`,`COMMENTS`)VALUES (uuid(), ?in_count, ?out_count, ?cstype, 'csid', ?csmc, unix_timestamp(), '');");
+            string sql = String.Format(@"INSERT INTO`zhcs_traveller_count`(`travellerid`,`in_count`,`out_count`,`current_in_count`,`current_out_count`,`cstype`,`csid`,`csmc`,`ctimestamp`,`COMMENTS`)VALUES (uuid(), ?in_count, ?out_count,?current_in_count, ?current_out_count, ?cstype, 'csid', ?csmc, unix_timestamp(), '');");
             MySqlParameter[] parameters =
             {
                 new MySqlParameter("?in_count",in_count),
                 new MySqlParameter("?out_count",out_count),
+                new MySqlParameter("?current_in_count",current_in_count),
+                new MySqlParameter("?current_out_count",current_out_count),
                 new MySqlParameter("?cstype",1),//厕所类型,1表示男厕，2表示女厕,3表示残障
                 new MySqlParameter("?csmc","A3男厕所")
                 };

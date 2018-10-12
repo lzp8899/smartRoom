@@ -64,7 +64,7 @@ namespace Web
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MainApp.Instance.Addzhcs_traveller_count(5,3);
+            MainApp.Instance.Addzhcs_traveller_count(5,3,2000,1980);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
