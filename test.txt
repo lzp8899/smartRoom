@@ -22,3 +22,7 @@
 收到设备数据：{"seq":"1000000008","id":"100000105100","city":"0028","messagetype":"request","command":"ping","parameter":"0.0,0.0"}
 发送数据：{"seq":"1000000009","id":"100000105100","city":"0028","messagetype":"response","command":"ping","parameter":"1"}
 收到设备数据：{"seq":"1000000009","id":"100000105100","city":"0028","messagetype":"request","command":"ping","parameter":"0.0,0.0"}
+
+
+234
+123
