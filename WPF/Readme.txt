@@ -17,3 +17,4 @@ services.AddSingleton生成单例对象
 81:web的端口 ServiceController:表示Controller所在的项目
 Web.Startup.StartWeb(81, typeof(ServiceController).Assembly);
 启动成功后访问http://localhost:81/swagger 可以访问表示启动成功
+test
